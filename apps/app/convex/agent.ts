@@ -8,11 +8,11 @@ import { RAG } from "@convex-dev/rag";
 
 export const supportAgent = new Agent(components.agent, {
 	name: "Support Agent",
-	chat: openai.chat("gpt-4o-mini"),
+	languageModel: openai.chat("gpt-4o-mini") as any,
 });
 
 // RAG instance for semantic search
-const rag = new RAG(components.rag, {
+const rag = new RAG((components as any).rag, {
 	textEmbeddingModel: openai.embedding("text-embedding-3-small"),
 	embeddingDimension: 1536,
 });
