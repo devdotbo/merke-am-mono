@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "convex:dev": "convex dev",
+    "convex:codegen": "convex codegen",
+    "convex:push": "convex push",
+    "convex:deploy": "convex deploy",
+    "convex:dashboard": "convex dashboard"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.20",
