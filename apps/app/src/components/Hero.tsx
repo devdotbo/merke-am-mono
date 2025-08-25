@@ -15,7 +15,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
-import { useAppKit } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount, useWalletInfo } from "@reown/appkit/react";
+import { useEnsAvatar, useEnsName } from "wagmi";
+import { useClientMounted } from "@/hooks/useClientMount";
 
 interface NodeItem {
   id: string;
@@ -149,9 +151,29 @@ export const Hero: React.FC<HeroComponentProps> = ({
   }, [cursor1X, cursor1Y, cursor2X, cursor2Y, nodes, scaledNodes]);
 
   const { open } = useAppKit();
+  const { address, isConnected } = useAppKitAccount();
+  const walletInfo = useWalletInfo();
+  const mounted = useClientMounted();
+
+  const { data: ensName } = useEnsName({
+    address: address as `0x${string}` | undefined,
+    chainId: 1,
+    query: { enabled: Boolean(address) }
+  });
+
+  const { data: ensAvatar } = useEnsAvatar({
+    name: ensName ?? undefined,
+    chainId: 1,
+    query: { enabled: Boolean(ensName) }
+  });
 
   const handleConnectWallet = () => {
     open();
+  };
+
+  const shortenAddress = (addr?: string) => {
+    if (!addr) return "";
+    return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
   };
 
   const handleAttachClick = () => fileInputRef.current?.click();
@@ -188,10 +210,23 @@ export const Hero: React.FC<HeroComponentProps> = ({
 
           <motion.div className="relative z-[10] flex items-center gap-2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
             <ModeToggle />
-            <Button variant="outline" onClick={handleConnectWallet} className="flex items-center gap-2 border-border/60">
-              <Wallet className="w-4 h-4" />
-              Connect Wallet
-            </Button>
+            {mounted && isConnected ? (
+              <Button variant="outline" onClick={handleConnectWallet} className="flex items-center gap-2 border-border/60">
+                {ensAvatar ? (
+                  <img src={ensAvatar} alt="ENS avatar" className="w-5 h-5 rounded-full" />
+                ) : (
+                  <Wallet className="w-4 h-4" />
+                )}
+                <span className="text-sm">
+                  {ensName || shortenAddress(address)}
+                </span>
+              </Button>
+            ) : (
+              <Button variant="outline" onClick={handleConnectWallet} className="flex items-center gap-2 border-border/60">
+                <Wallet className="w-4 h-4" />
+                Connect Wallet
+              </Button>
+            )}
           </motion.div>
         </div>
 
