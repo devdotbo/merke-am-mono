@@ -13,9 +13,12 @@
   --primary-foreground: 0 0% 98%;
 
   /* Reown AppKit (WalletConnect Modal) default theming */
-  --wcm-font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  --wcm-accent-color: #111827; /* dark slate to match brand */
-  --wcm-accent-fill-color: #ffffff;
+  --wcm-font-family: var(--font-geist-sans, ui-sans-serif), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --wcm-accent-color: hsl(var(--accent));
+  --wcm-accent-fill-color: hsl(var(--accent-foreground));
+  --wcm-background-color: hsl(var(--background));
+  --wcm-overlay-background-color: rgba(0, 0, 0, 0.35);
+  --wcm-overlay-backdrop-filter: blur(2px);
   --wcm-container-border-radius: 16px;
   --wcm-button-border-radius: 8px;
   --wcm-secondary-button-border-radius: 8px;
@@ -35,10 +38,7 @@
   --accent-foreground: 0 0% 10%;
   --primary: var(--foreground);
   --primary-foreground: 0 0% 8%;
-
-  /* AppKit dark theme overrides */
-  --wcm-accent-color: #e5e7eb; /* light gray */
-  --wcm-accent-fill-color: #111827;
+  /* AppKit picks up brand tokens automatically via hsl(var(--...)) */
 }
 
 /* Utilities */
