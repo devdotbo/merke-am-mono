@@ -26,7 +26,6 @@ export const modal = createAppKit({
 	projectId,
 	networks,
 	metadata,
-	themeMode: 'system',
 	features: {
 		analytics: true // Optional - defaults to your Cloud configuration
 	},

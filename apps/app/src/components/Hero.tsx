@@ -21,7 +21,7 @@ import { useEnsAvatar, useEnsName } from "wagmi";
 import { useClientMounted } from "@/hooks/useClientMount";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useAction } from "convex/react";
-import { api } from "@/../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 
 interface NodeItem {
 	id: string;
