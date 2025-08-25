@@ -1,0 +1,36 @@
+{
+  "name": "merke-am-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@merke/brand": "workspace:*",
+    "fumadocs-core": "^15.7.2",
+    "fumadocs-mdx": "^11.8.0",
+    "fumadocs-ui": "^15.7.2",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.15.3",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "eslint": "^9.33.0",
+    "tailwindcss": "^4",
+    "typescript": "5.9.2"
+  }
+}
+
+
