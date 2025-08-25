@@ -2,7 +2,7 @@ import { defineApp } from "convex/server";
 import agent from "@convex-dev/agent/convex.config";
 import rag from "@convex-dev/rag/convex.config";
 
-const app = defineApp();
+const app: any = defineApp();
 
 // Enable Convex Agent component tables/endpoints
 app.use(agent);
