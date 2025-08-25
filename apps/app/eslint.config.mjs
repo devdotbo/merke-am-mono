@@ -7,6 +7,7 @@ export default [
     ignores: [
       ".next/**",
       "next-env.d.ts",
+      "convex/_generated/**",
     ],
   },
 ];
