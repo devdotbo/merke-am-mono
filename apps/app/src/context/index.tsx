@@ -2,8 +2,9 @@
 
 import { wagmiAdapter, projectId, networks } from '@/config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createAppKit } from '@reown/appkit/react'
-import React, { type ReactNode } from 'react'
+import { createAppKit, useAppKitTheme } from '@reown/appkit/react'
+import React, { type ReactNode, useEffect } from 'react'
+import { useTheme } from 'next-themes'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 
 // Set up queryClient
@@ -30,12 +31,31 @@ export const modal = createAppKit({
   // Prefer CSS variable overrides in globals.css for AppKit theming
 })
 
+function AppKitThemeSync() {
+  const { theme, systemTheme } = useTheme()
+  const kitTheme = useAppKitTheme()
+
+  useEffect(() => {
+    const resolved = theme === 'system' ? systemTheme : theme
+    const mode = resolved === 'dark' ? 'dark' : 'light'
+    // Guard in case API surface changes
+    if (kitTheme && typeof (kitTheme as any).setThemeMode === 'function') {
+      ;(kitTheme as any).setThemeMode(mode)
+    }
+  }, [theme, systemTheme, kitTheme])
+
+  return null
+}
+
 function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
   const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
 
   return (
     <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppKitThemeSync />
+        {children}
+      </QueryClientProvider>
     </WagmiProvider>
   )
 }
