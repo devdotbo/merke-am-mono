@@ -23,13 +23,11 @@ export const modal = createAppKit({
   projectId,
   networks,
   metadata,
-  themeMode: 'light',
+  themeMode: 'system',
   features: {
     analytics: true // Optional - defaults to your Cloud configuration
   },
-  themeVariables: {
-    '--w3m-accent': '#000000',
-  }
+  // Prefer CSS variable overrides in globals.css for AppKit theming
 })
 
 function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {

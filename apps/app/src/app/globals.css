@@ -3,3 +3,5 @@
 @import "@merke/brand";
 
 /* Keep this file minimal and delegate tokens/utilities to @merke/brand */
+
+/* App-level overrides removed; centralized in @merke/brand */
