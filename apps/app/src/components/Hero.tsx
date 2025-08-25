@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
+import { useAppKit } from "@reown/appkit/react";
 
 interface NodeItem {
   id: string;
@@ -147,8 +148,10 @@ export const Hero: React.FC<HeroComponentProps> = ({
     return () => clearInterval(interval);
   }, [cursor1X, cursor1Y, cursor2X, cursor2Y, nodes, scaledNodes]);
 
+  const { open } = useAppKit();
+
   const handleConnectWallet = () => {
-    toast("Wallet login coming soon!", { description: "We're working on integrating wallet connectivity.", duration: 3000 });
+    open();
   };
 
   const handleAttachClick = () => fileInputRef.current?.click();
