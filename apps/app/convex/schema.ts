@@ -19,10 +19,26 @@ const messages = defineTable({
   createdAt: v.number(),
 }).index("by_thread", ["threadId", "createdAt"]);
 
+// Realtime presence for collaborative canvas and cursors
+// Rows are ephemeral; clients should refresh "updatedAt" periodically.
+const presence = defineTable({
+  roomId: v.string(),
+  clientId: v.string(),
+  username: v.string(),
+  color: v.string(),
+  x: v.number(),
+  y: v.number(),
+  updatedAt: v.number(),
+}).index("by_room_and_client", ["roomId", "clientId"]).index(
+  "by_room_and_updatedAt",
+  ["roomId", "updatedAt"],
+);
+
 const schema = defineSchema({
   ...authTables,
   users,
   messages,
+  presence,
 });
 
 export default schema;

@@ -10,6 +10,8 @@
 
 import type * as agent from "../agent.js";
 import type * as auth from "../auth.js";
+import type * as chat from "../chat.js";
+import type * as collab from "../collab.js";
 import type * as http from "../http.js";
 import type * as rag from "../rag.js";
 
@@ -30,6 +32,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   agent: typeof agent;
   auth: typeof auth;
+  chat: typeof chat;
+  collab: typeof collab;
   http: typeof http;
   rag: typeof rag;
 }>;
