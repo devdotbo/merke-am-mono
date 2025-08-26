@@ -20,11 +20,11 @@ function getClientId(): string {
 export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?: string }) {
   const [threadId] = useState<string>(defaultThreadId);
   const [message, setMessage] = useState("");
-  const list = useQuery(api.chat.list, { threadId }) || [];
+  const { isAuthenticated } = useConvexAuth();
+  const list = useQuery(api.chat.list, isAuthenticated ? { threadId } : "skip") ?? [];
   const send = useMutation(api.chat.send);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const clientId = useMemo(() => getClientId(), []);
-  const { isAuthenticated } = useConvexAuth();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
     const stored = window.localStorage.getItem("canvas.username");

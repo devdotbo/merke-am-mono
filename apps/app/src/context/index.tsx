@@ -8,6 +8,7 @@ import { useTheme } from 'next-themes'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 import { ConvexReactClient } from 'convex/react'
 import { ConvexAuthProvider } from '@convex-dev/auth/react'
+import AuthBridge from './AuthBridge'
 
 // Set up queryClient
 const queryClient = new QueryClient()
@@ -57,6 +58,7 @@ function ContextProvider({ children, cookies }: { children: ReactNode; cookies: 
 		<WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
 			<ConvexAuthProvider client={convex}>
 				<QueryClientProvider client={queryClient}>
+					<AuthBridge />
 					<AppKitThemeSync />
 					{children}
 				</QueryClientProvider>
