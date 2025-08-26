@@ -16,6 +16,9 @@ const messages = defineTable({
   threadId: v.optional(v.string()),
   role: v.string(),
   content: v.string(),
+  // Optional client identity for labeling in UIs without auth
+  clientId: v.optional(v.string()),
+  username: v.optional(v.string()),
   createdAt: v.number(),
 }).index("by_thread", ["threadId", "createdAt"]);
 
