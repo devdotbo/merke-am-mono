@@ -19,7 +19,6 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { useAppKit, useAppKitAccount, useWalletInfo } from "@reown/appkit/react";
 import { useEnsAvatar, useEnsName } from "wagmi";
 import { useClientMounted } from "@/hooks/useClientMount";
-import { useAuthActions } from "@convex-dev/auth/react";
 import { useAction } from "convex/react";
 import { api } from "@convex/_generated/api";
 
@@ -157,12 +156,10 @@ export const Hero: React.FC<HeroComponentProps> = ({
 	const { address, isConnected } = useAppKitAccount();
 	useWalletInfo();
 	const mounted = useClientMounted();
-	const { signIn } = useAuthActions();
+	const canAsk = mounted && isConnected;
 	const askAgent = useAction(api.agent.askAgent);
-	const ensureThread = useAction(api.agent.ensureThread);
 	const [threadId, setThreadId] = useState<string | undefined>(undefined);
 	const [agentReply, setAgentReply] = useState<string>("");
-	const [isAuthed, setIsAuthed] = useState(false);
 
 	const { data: ensName } = useEnsName({
 		address: address as `0x${string}` | undefined,
@@ -178,17 +175,6 @@ export const Hero: React.FC<HeroComponentProps> = ({
 
 	const handleConnectWallet = () => {
 		open();
-	};
-
-	const handleSignIn = async () => {
-		if (!address) {
-			open();
-			return;
-		}
-		await signIn("wallet", { address });
-		setIsAuthed(true);
-		const created = await ensureThread({});
-		setThreadId(created.threadId);
 	};
 
 	const handleAsk = async () => {
@@ -261,10 +247,10 @@ export const Hero: React.FC<HeroComponentProps> = ({
 						<motion.form
 							onSubmit={(e) => {
 								e.preventDefault();
-								if (isAuthed) {
+								if (canAsk) {
 									void handleAsk();
 								} else {
-									void handleSignIn();
+									void handleConnectWallet();
 								}
 							}}
 							className="w-full max-w-2xl mx-auto"
@@ -317,7 +303,7 @@ export const Hero: React.FC<HeroComponentProps> = ({
 									/>
 									<input ref={fileInputRef} type="file" multiple onChange={handleFilesChange} className="sr-only" accept=".txt,.md,.pdf,.json,.csv,.doc,.docx,.png,.jpg,.jpeg,.gif,.webp" />
 									<Button type="submit" disabled={!inputValue.trim() && attachedFiles.length === 0} className="rounded-full bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent)/0.9)] disabled:bg-[hsl(var(--accent)/0.35)] disabled:text-[hsl(var(--accent-foreground))] disabled:opacity-100">
-										{isAuthed ? "Ask Agent" : "Sign in to ask"}
+										{canAsk ? "Ask Agent" : "Connect wallet to ask"}
 									</Button>
 								</div>
 							</div>
