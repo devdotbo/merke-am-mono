@@ -8,7 +8,7 @@ import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import Image from "next/image";
 import { useEnsAvatar, useEnsName } from "wagmi";
 
-export default function HeroHeader() {
+export default function AppHeader() {
   const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
 

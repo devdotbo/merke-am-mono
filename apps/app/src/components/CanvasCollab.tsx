@@ -115,7 +115,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
         {nodes.map((node, i) => {
           const next = nodes[i + 1];
           if (!next) return null;
-          return <line key={`edge-${i}`} x1={node.x} y1={node.y} x2={next.x} y2={next.y} stroke="hsl(var(--foreground))" strokeWidth={1.4} strokeDasharray="5,5" opacity={0.25} />;
+          return <line key={`${node.id}-${next.id}`} x1={node.x} y1={node.y} x2={next.x} y2={next.y} stroke="hsl(var(--foreground))" strokeWidth={1.4} strokeDasharray="5,5" opacity={0.25} />;
         })}
       </svg>
       {nodes.map((node, index) => (
@@ -129,7 +129,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
 
       {/* Remote cursors */}
       {presences.map((p) => (
-        <div key={p._id} className="absolute pointer-events-none" style={{ transform: `translate(${p.x}px, ${p.y}px)` }}>
+        <div key={p._id} className="absolute pointer-events-none" style={{ transform: `translate(${String(p.x)}px, ${String(p.y)}px)` }}>
           <div className="relative" style={{ zIndex: 10 }}>
             <div className="w-4 h-4 rounded-full shadow" style={{ backgroundColor: p.color }} />
             <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs px-2 py-0.5 rounded text-primary-foreground shadow" style={{ backgroundColor: p.color }}>
@@ -140,7 +140,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
       ))}
 
       {/* Local cursor (on top) */}
-      <div className="absolute pointer-events-none" style={{ transform: `translate(${cursor.x}px, ${cursor.y}px)` }}>
+      <div className="absolute pointer-events-none" style={{ transform: `translate(${String(cursor.x)}px, ${String(cursor.y)}px)` }}>
         <div className="relative" style={{ zIndex: 20 }}>
           <div className="w-4 h-4 rounded-full shadow" style={{ backgroundColor: color }} />
           <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs px-2 py-0.5 rounded text-primary-foreground shadow" style={{ backgroundColor: color }}>

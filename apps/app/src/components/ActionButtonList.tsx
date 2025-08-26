@@ -17,9 +17,9 @@ export const ActionButtonList = () => {
     }
   return (
     <div>
-        <button onClick={() => open()}>Open</button>
-        <button onClick={handleDisconnect}>Disconnect</button>
-        <button onClick={() => switchNetwork(networks[1]!) }>Switch</button>
+        <button onClick={() => { void open(); }}>Open</button>
+        <button onClick={() => { void handleDisconnect(); }}>Disconnect</button>
+        <button onClick={() => { void switchNetwork(networks[1]!); }}>Switch</button>
     </div>
   )
 }
