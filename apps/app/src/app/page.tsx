@@ -13,7 +13,6 @@ export default function Home() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <AppShowcase />
             <CanvasCollab />
           </div>
           <div className="space-y-6">
