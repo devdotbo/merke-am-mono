@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 type NodeItem = {
   id: string;
   label: string;
+  kind: string;
   icon: React.ReactNode;
   x: number;
   y: number;
@@ -56,17 +57,49 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   }, []);
   const clientId = useMemo(() => getClientId(), []);
 
-  const [nodes, setNodes] = useState<Array<NodeItem>>(() => [
-    { id: "data", label: "Data Sources", icon: <Database className="w-6 h-6" />, x: 140, y: 120 },
-    { id: "rag", label: "RAG Pipeline", icon: <Zap className="w-6 h-6" />, x: 380, y: 90 },
-    { id: "inference", label: "AI Inference", icon: <Brain className="w-6 h-6" />, x: 600, y: 120 },
-  ]);
+  const [nodes, setNodes] = useState<Array<NodeItem>>([]);
 
   const [view, setView] = useState<{ x: number; y: number; scale: number }>({ x: 0, y: 0, scale: 1 });
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const dragOffset = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
   const [panning, setPanning] = useState<boolean>(false);
   const panStart = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Convex: load and persist nodes
+  const dbNodes = useQuery(api.canvas.listNodes, { roomId }) || [];
+  const upsertNode = useMutation(api.canvas.upsertNode);
+  const deleteNodeMutation = useMutation(api.canvas.deleteNode);
+
+  // Map db nodes to local state with icons
+  useEffect(() => {
+    const withIcons: Array<NodeItem> = dbNodes.map((n) => ({
+      id: n._id,
+      label: n.label,
+      kind: n.kind,
+      x: n.x,
+      y: n.y,
+      icon:
+        n.kind === "data" ? (
+          <Database className="w-6 h-6" />
+        ) : n.kind === "inference" ? (
+          <Brain className="w-6 h-6" />
+        ) : (
+          <Zap className="w-6 h-6" />
+        ),
+    }));
+    setNodes(withIcons);
+  }, [dbNodes]);
+
+  // Seed defaults if empty
+  useEffect(() => {
+    if (!dbNodes || dbNodes.length > 0) return;
+    const seed = async () => {
+      await upsertNode({ roomId, kind: "data", label: "Data Sources", x: 140, y: 120 });
+      await upsertNode({ roomId, kind: "rag", label: "RAG Pipeline", x: 380, y: 90 });
+      await upsertNode({ roomId, kind: "inference", label: "AI Inference", x: 600, y: 120 });
+    };
+    void seed();
+  }, [dbNodes, roomId, upsertNode]);
 
   const toWorld = useCallback((clientX: number, clientY: number) => {
     const el = containerRef.current;
@@ -150,11 +183,16 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
 
   const endPanOrDrag = useCallback(() => {
     setPanning(false);
+    if (draggingId) {
+      const moved = nodes.find((n) => n.id === draggingId);
+      if (moved) {
+        void upsertNode({ roomId, id: moved.id as any, kind: moved.kind, label: moved.label, x: moved.x, y: moved.y });
+      }
+    }
     setDraggingId(null);
-  }, []);
+  }, [draggingId, nodes, roomId, upsertNode]);
 
   const addNode = useCallback(() => {
-    const id = `node-${crypto.randomUUID().slice(0, 6)}`;
     const el = containerRef.current;
     let wx = 200, wy = 140;
     if (el) {
@@ -163,8 +201,8 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
       const world = { x: (cx - view.x) / view.scale, y: (cy - view.y) / view.scale };
       wx = world.x; wy = world.y;
     }
-    setNodes((prev) => [...prev, { id, label: "Node", icon: <Zap className="w-6 h-6" />, x: wx, y: wy }]);
-  }, [view.x, view.y, view.scale]);
+    void upsertNode({ roomId, kind: "generic", label: "Node", x: wx, y: wy });
+  }, [roomId, upsertNode, view.x, view.y, view.scale]);
 
   const resetView = useCallback(() => {
     setView({ x: 0, y: 0, scale: 1 });
@@ -181,7 +219,8 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
 
   const removeNode = useCallback((id: string) => {
     setNodes((prev) => prev.filter((n) => n.id !== id));
-  }, []);
+    void deleteNodeMutation({ id: id as any });
+  }, [deleteNodeMutation]);
 
   return (
     <div
