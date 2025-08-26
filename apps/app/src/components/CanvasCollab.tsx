@@ -30,20 +30,29 @@ const palette = ["#FF6B6B", "#4ECDC4", "#FFD166", "#7C6FF9", "#06D6A0"] as const
 export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [cursor, setCursor] = useState<{ x: number; y: number }>({ x: 120, y: 120 });
-  const [username] = useState<string>(() => {
-    if (typeof window === "undefined") return "guest";
-    const name = window.localStorage.getItem("canvas.username");
-    return name ? name : "guest";
-  });
-  const getInitialColor = (): string => {
-    if (typeof window === "undefined") return palette[0];
+  // Use deterministic defaults for SSR and initial client render to avoid hydration mismatches.
+  const [username, setUsername] = useState<string>("guest");
+  const [color, setColor] = useState<string>(palette[0]);
+
+  // After mount, hydrate username from localStorage (client-only).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storedName = window.localStorage.getItem("canvas.username");
+    if (storedName) setUsername(storedName);
+  }, []);
+
+  // After mount, hydrate color from localStorage or generate and persist one (client-only).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem("canvas.color");
-    if (saved) return saved;
+    if (saved) {
+      setColor(saved);
+      return;
+    }
     const c = palette[Math.floor(Math.random() * palette.length)] ?? palette[0];
     window.localStorage.setItem("canvas.color", c);
-    return c;
-  };
-  const [color] = useState<string>(getInitialColor());
+    setColor(c);
+  }, []);
   const clientId = useMemo(() => getClientId(), []);
 
   const nodes: NodeItem[] = useMemo(
