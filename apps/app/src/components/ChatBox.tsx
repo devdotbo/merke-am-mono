@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
+import { useConvexAuth } from "convex/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -23,6 +24,7 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
   const send = useMutation(api.chat.send);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const clientId = useMemo(() => getClientId(), []);
+  const { isAuthenticated } = useConvexAuth();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
     const stored = window.localStorage.getItem("canvas.username");
@@ -37,6 +39,10 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
     const text = message.trim();
     if (!text) return;
     setMessage("");
+    if (!isAuthenticated) {
+      alert("Please sign in with your wallet to chat.");
+      return;
+    }
     await send({ threadId, content: text, clientId, username });
   }
 
@@ -60,7 +66,7 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
             void handleSend();
           }
         }} />
-        <Button onClick={() => void handleSend()}>Send</Button>
+        <Button onClick={() => void handleSend()} disabled={!isAuthenticated}>Send</Button>
       </div>
     </div>
   );

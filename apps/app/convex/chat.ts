@@ -12,6 +12,7 @@ export const send = mutation({
   returns: v.null(),
   handler: async (ctx, { threadId, content, clientId, username }) => {
     const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Not authenticated");
     await ctx.db.insert("messages", {
       userId: (userId as any) ?? undefined,
       threadId,
@@ -48,6 +49,8 @@ export const list = query({
     }),
   ),
   handler: async (ctx, { threadId }) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Not authenticated");
     return await ctx.db
       .query("messages")
       .withIndex("by_thread", (q) => q.eq("threadId", threadId))
