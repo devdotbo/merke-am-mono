@@ -1,7 +1,6 @@
 import AppHeader from "@/components/AppHeader";
 import CanvasCollab from "@/components/CanvasCollab";
 import ChatBox from "@/components/ChatBox";
-import AppShowcase from "@/components/AppShowcase";
 
 export default function Home() {
   return (
@@ -11,13 +10,17 @@ export default function Home() {
       <div className="relative z-[5] container mx-auto pl-4 pr-8 md:pr-16 lg:pr-24 xl:pr-32 py-10">
         <AppHeader />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
-            <CanvasCollab />
-          </div>
-          <div className="space-y-6">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-stretch">
+          {/* Left column: Chat full height */}
+          <div className="space-y-3 lg:space-y-4 h-[calc(100vh-180px)]">
             <h2 className="text-xl font-semibold">Chat</h2>
-            <ChatBox />
+            <div className="h-[calc(100%-2rem)] lg:h-[calc(100%-1.5rem)]">
+              <ChatBox />
+            </div>
+          </div>
+          {/* Right column: Canvas */}
+          <div className="space-y-3 lg:space-y-4 h-[calc(100vh-180px)]">
+            <CanvasCollab />
           </div>
         </div>
       </div>

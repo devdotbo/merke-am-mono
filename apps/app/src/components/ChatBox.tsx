@@ -47,8 +47,8 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
   }
 
   return (
-    <div className="w-full max-w-2xl rounded-2xl border border-border bg-background">
-      <div className="p-4 space-y-3 h-64 overflow-y-auto">
+    <div className="w-full h-full rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="p-4 space-y-3 h-[calc(100%-58px)] overflow-y-auto">
         {list.map((m) => {
           const label = m.role === "assistant" ? "AI" : m.clientId && m.clientId === clientId ? "You" : m.username || "User";
           return (
@@ -59,14 +59,14 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
         })}
         <div ref={bottomRef} />
       </div>
-      <div className="p-3 border-t border-border flex gap-2">
+      <div className="p-3 border-t border-border/60 flex gap-2 sticky bottom-0 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Say something…" onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             void handleSend();
           }
         }} />
-        <Button onClick={() => void handleSend()} disabled={!isAuthenticated}>Send</Button>
+        <Button onClick={() => void handleSend()} disabled={!isAuthenticated} variant="outline">Send</Button>
       </div>
     </div>
   );
