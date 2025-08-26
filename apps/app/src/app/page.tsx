@@ -1,6 +1,7 @@
-import AppHeader from "@/components/HeroHeader";
+import AppHeader from "@/components/AppHeader";
 import CanvasCollab from "@/components/CanvasCollab";
 import ChatBox from "@/components/ChatBox";
+import AppShowcase from "@/components/AppShowcase";
 
 export default function Home() {
   return (
@@ -12,12 +13,7 @@ export default function Home() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
-            <h1 className="text-5xl lg:text-6xl font-semibold leading-tight tracking-tight text-foreground font-brand-serif">
-              Build with nodes. Keep the proof.
-            </h1>
-            <p className="text-lg md:text-xl text-foreground/90 max-w-2xl leading-7 md:leading-8 tracking-normal font-brand-sans">
-              Click together data, RAG, and inference. 0G anchors your history and verifies results.
-            </p>
+            <AppShowcase />
             <CanvasCollab />
           </div>
           <div className="space-y-6">

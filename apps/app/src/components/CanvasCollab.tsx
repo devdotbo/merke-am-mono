@@ -85,9 +85,9 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
         console.error("Presence heartbeat failed", error);
         throw error;
       }
-      if (!stop) setTimeout(tick, 10_000);
+      if (!stop) setTimeout(() => { void tick(); }, 10_000);
     };
-    tick();
+    void tick();
     return () => {
       stop = true;
     };
