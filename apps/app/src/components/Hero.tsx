@@ -229,7 +229,7 @@ export const Hero: React.FC<HeroComponentProps> = ({
 					<motion.div className="relative z-[10] flex items-center gap-2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
 						<ModeToggle />
 						{mounted && isConnected ? (
-							<Button variant="outline" onClick={isAuthed ? handleConnectWallet : handleSignIn} className="flex items-center gap-2 border-border/60">
+							<Button variant="outline" onClick={handleConnectWallet} className="flex items-center gap-2 border-border/60">
 								{ensAvatar ? (
 									<span className="w-5 h-5 rounded-full overflow-hidden inline-flex items-center justify-center bg-muted">
 										<Image src={ensAvatar} alt="ENS avatar" width={20} height={20} />
@@ -237,9 +237,7 @@ export const Hero: React.FC<HeroComponentProps> = ({
 								) : (
 									<Wallet className="w-4 h-4" />
 								)}
-								<span className="text-sm">
-									{isAuthed ? (ensName || shortenAddress(address)) : "Sign in"}
-								</span>
+								<span className="text-sm">{ensName || shortenAddress(address)}</span>
 							</Button>
 						) : (
 							<Button variant="outline" onClick={handleConnectWallet} className="flex items-center gap-2 border-border/60">
