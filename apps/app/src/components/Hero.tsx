@@ -319,7 +319,7 @@ export const Hero: React.FC<HeroComponentProps> = ({
 								const nextNode = scaledNodes[index + 1];
 								if (!nextNode) return null;
 								return (
-									<motion.line key={`line-${index}`} x1={node.x} y1={node.y} x2={nextNode.x} y2={nextNode.y} stroke="hsl(var(--foreground))" strokeWidth="1.6" strokeOpacity="0.2" strokeDasharray="5,5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3.2, delay: index * 0.4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }} />
+									<motion.line key={`${node.id}-${nextNode.id}`} x1={node.x} y1={node.y} x2={nextNode.x} y2={nextNode.y} stroke="hsl(var(--foreground))" strokeWidth="1.6" strokeOpacity="0.2" strokeDasharray="5,5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 3.2, delay: index * 0.4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }} />
 								);
 							})}
 						</svg>
