@@ -47,8 +47,8 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
   }
 
   return (
-    <div className="w-full h-full rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="p-4 space-y-3 h-[calc(100%-58px)] overflow-y-auto">
+    <div className="w-full h-full rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex flex-col">
+      <div className="p-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
         {list.map((m) => {
           const label = m.role === "assistant" ? "AI" : m.clientId && m.clientId === clientId ? "You" : m.username || "User";
           return (

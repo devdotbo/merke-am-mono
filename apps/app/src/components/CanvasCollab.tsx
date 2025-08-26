@@ -191,7 +191,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
       onMouseUp={endPanOrDrag}
       onMouseLeave={endPanOrDrag}
       onWheel={handleWheel}
-      className={cn("relative w-full h-full rounded-xl border border-border/60 bg-background overflow-hidden select-none")}
+      className={cn("relative w-full h-full rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60 overflow-hidden select-none")}
       style={{ backgroundImage: "radial-gradient(hsl(var(--foreground)/0.08) 1px, transparent 1px)", backgroundSize: "20px 20px" }}
     >
       <div

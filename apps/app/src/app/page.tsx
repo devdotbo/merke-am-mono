@@ -12,15 +12,18 @@ export default function Home() {
 
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-stretch">
           {/* Left column: Chat full height */}
-          <div className="space-y-3 lg:space-y-4 h-[calc(100vh-180px)]">
-            <h2 className="text-xl font-semibold">Chat</h2>
-            <div className="h-[calc(100%-2rem)] lg:h-[calc(100%-1.5rem)]">
+          <div className="flex flex-col h-[calc(100vh-180px)]">
+            <h2 className="text-xl font-semibold mb-3 lg:mb-4">Chat</h2>
+            <div className="flex-1 min-h-0">
               <ChatBox />
             </div>
           </div>
-          {/* Right column: Canvas */}
-          <div className="space-y-3 lg:space-y-4 h-[calc(100vh-180px)]">
-            <CanvasCollab />
+          {/* Right column: Canvas (matched heading height for alignment) */}
+          <div className="flex flex-col h-[calc(100vh-180px)]">
+            <h2 className="text-xl font-semibold mb-3 lg:mb-4 opacity-0 select-none">Canvas</h2>
+            <div className="flex-1 min-h-0">
+              <CanvasCollab />
+            </div>
           </div>
         </div>
       </div>
