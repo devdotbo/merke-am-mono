@@ -5,9 +5,15 @@ import pluginReact from "eslint-plugin-react";
 /** @type {import("eslint").Linter.Config} */
 export default [
   ...nextJsConfig,
-  // App-specific: enable type-checked rules (requires tsconfig) and React Compiler-friendly linting
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.strictTypeChecked,
+  // App-specific: enable type-checked rules only for TS/TSX files
+  ...tseslint.configs.recommendedTypeChecked.map((c) => ({
+    ...c,
+    files: ["**/*.ts", "**/*.tsx"],
+  })),
+  ...tseslint.configs.strictTypeChecked.map((c) => ({
+    ...c,
+    files: ["**/*.ts", "**/*.tsx"],
+  })),
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
@@ -31,6 +37,13 @@ export default [
       ".next/**",
       "next-env.d.ts",
       "convex/_generated/**",
+      // Avoid linting the flat config itself with type-aware rules
+      "eslint.config.mjs",
+      // Ignore other JS config files that don't need TS-aware linting
+      "postcss.config.mjs",
+      "*.config.js",
+      "*.config.cjs",
+      "*.config.mjs",
     ],
   },
 ];
