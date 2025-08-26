@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## merke.am — Landing (Marketing Site)
 
-## Getting Started
+The Landing app is the marketing front page for Merke. It is a Next.js 15 site styled with Tailwind 4 and our shared `@merke/brand` tokens. It lives at `apps/landing` and runs on port 3000 in development.
 
-First, run the development server:
+### Features
+
+- Lightweight marketing site, optimized for performance
+- Shared brand tokens via `@merke/brand`
+- Dark mode via `next-themes`
+- Radix UI primitives and Framer Motion accents
+
+### Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm i
+pnpm --filter merke-am-landing dev  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+From the repo root you can also run:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Directory layout
 
-## Learn More
+```
+apps/landing
+├─ src/
+│  ├─ app/           # routes and layout
+│  └─ components/    # hero, sections, nav
+└─ public/
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Editing content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Update copy and sections in `src/app/page.tsx` and related components.
+- Global styles are provided by `@merke/brand`; override tokens as needed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Deployment
 
-## Deploy on Vercel
+- Recommended: Vercel. Set any required environment variables there.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Related
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- dApp: `../app` (port 3002)
+- Docs: `../docs` (port 3001)
