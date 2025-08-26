@@ -174,14 +174,14 @@ export const AppShowcase: React.FC<AppShowcaseProps> = ({
 	});
 
 	const handleConnectWallet = () => {
-		open();
+		void open();
 	};
 
 	const handleAsk = async () => {
 		if (!inputValue.trim()) return;
 		const res = await askAgent({ prompt: inputValue, threadId });
 		setAgentReply(res.text);
-		if (!threadId && res.threadId) setThreadId(res.threadId as string);
+		if (!threadId && res.threadId) setThreadId(res.threadId);
 	};
 
 	const shortenAddress = (addr?: string) => {
@@ -333,7 +333,7 @@ export const AppShowcase: React.FC<AppShowcaseProps> = ({
 									<div className="text-center mt-3 text-sm font-medium text-foreground font-brand-sans">{node.label}</div>
 									<motion.div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-background border border-border rounded-lg shadow-md overflow-hidden" initial={{ opacity: 0, scale: 0.96, y: -6 }} animate={nodeStates[node.id] ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.96, y: -6 }} transition={{ duration: 0.2, ease: "easeOut" }} style={{ pointerEvents: "none" }}>
 										{node.details.map((detail, detailIndex) => (
-											<motion.div key={`${node.id}-detail-${detailIndex}`} className="px-4 py-2 text-sm font-semibold text-foreground border-b border-border/50 last:border-b-0 font-brand-sans" initial={{ opacity: 0, x: -10 }} animate={nodeStates[node.id] ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }} transition={{ duration: 0.18, delay: detailIndex * 0.08, ease: "easeOut" }}>
+											<motion.div key={`${node.id}-detail-${detail}`} className="px-4 py-2 text-sm font-semibold text-foreground border-b border-border/50 last:border-b-0 font-brand-sans" initial={{ opacity: 0, x: -10 }} animate={nodeStates[node.id] ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }} transition={{ duration: 0.18, delay: detailIndex * 0.08, ease: "easeOut" }}>
 												{detail}
 											</motion.div>
 										))}

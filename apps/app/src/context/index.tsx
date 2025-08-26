@@ -49,13 +49,13 @@ function AppKitThemeSync() {
 }
 
 function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
-	const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
+	const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, cookies)
 
 	// Convex client for browser; URL inferred from env
 	const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL as string, { verbose: false })
 
 	return (
-		<WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
+		<WagmiProvider config={wagmiAdapter.wagmiConfig} initialState={initialState}>
 			<ConvexAuthProvider client={convex}>
 				<QueryClientProvider client={queryClient}>
 					<AuthBridge />
