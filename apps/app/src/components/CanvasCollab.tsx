@@ -32,16 +32,18 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   const [cursor, setCursor] = useState<{ x: number; y: number }>({ x: 120, y: 120 });
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
-    return (window.localStorage.getItem("canvas.username") || "guest") as string;
+    const name = window.localStorage.getItem("canvas.username");
+    return name ? name : "guest";
   });
-  const [color] = useState<string>(() => {
+  const getInitialColor = (): string => {
     if (typeof window === "undefined") return palette[0];
     const saved = window.localStorage.getItem("canvas.color");
     if (saved) return saved;
-    const c = palette[Math.floor(Math.random() * palette.length)];
+    const c = palette[Math.floor(Math.random() * palette.length)] ?? palette[0];
     window.localStorage.setItem("canvas.color", c);
     return c;
-  });
+  };
+  const [color] = useState<string>(getInitialColor());
   const clientId = useMemo(() => getClientId(), []);
 
   const nodes: NodeItem[] = useMemo(
@@ -69,8 +71,10 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
           x: cursor.x,
           y: cursor.y,
         });
-      } catch (e) {
-        // ignore
+      } catch (error) {
+        // Always report and surface the error
+        console.error("Presence heartbeat failed", error);
+        throw error;
       }
       if (!stop) setTimeout(tick, 10_000);
     };
@@ -82,12 +86,12 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   }, [roomId, clientId, username, color]);
 
   const handlePointer = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (_e: React.MouseEvent<HTMLDivElement>) => {
       const el = containerRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-      const y = Math.max(0, Math.min(e.clientY - rect.top, rect.height));
+      const x = Math.max(0, Math.min(_e.clientX - rect.left, rect.width));
+      const y = Math.max(0, Math.min(_e.clientY - rect.top, rect.height));
       setCursor({ x, y });
       // fire-and-forget, throttled by React event frequency
       void updatePresence({ roomId, clientId, username, color, x, y });

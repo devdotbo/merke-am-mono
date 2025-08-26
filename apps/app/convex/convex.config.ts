@@ -1,14 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineApp } from "convex/server";
 import agent from "@convex-dev/agent/convex.config";
 import rag from "@convex-dev/rag/convex.config";
 
-const app: any = defineApp();
-
-// Enable Convex Agent component tables/endpoints
+const app = defineApp();
 app.use(agent);
-// Enable Convex RAG component tables/endpoints
 app.use(rag);
 
-export default app;
+export default app as any;
 
 

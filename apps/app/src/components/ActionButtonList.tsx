@@ -12,6 +12,7 @@ export const ActionButtonList = () => {
         await disconnect();
       } catch (error) {
         console.error("Failed to disconnect:", error);
+        throw error;
       }
     }
   return (

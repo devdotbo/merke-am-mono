@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Agent } from "@convex-dev/agent";
 import { openai } from "@ai-sdk/openai";
 import { components } from "./_generated/api";
@@ -8,11 +9,12 @@ import { RAG } from "@convex-dev/rag";
 
 export const supportAgent = new Agent(components.agent, {
 	name: "Support Agent",
+	// Cast for vendor SDK interop
 	languageModel: openai.chat("gpt-4o-mini") as any,
 });
 
 // RAG instance for semantic search
-const rag = new RAG((components as any).rag, {
+const rag = new RAG((components as unknown as { rag: unknown }).rag as any, {
 	textEmbeddingModel: openai.embedding("text-embedding-3-small"),
 	embeddingDimension: 1536,
 });

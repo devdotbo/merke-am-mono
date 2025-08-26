@@ -14,7 +14,7 @@ export const send = mutation({
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Not authenticated");
     await ctx.db.insert("messages", {
-      userId: (userId as any) ?? undefined,
+      userId,
       threadId,
       role: "user",
       content,
