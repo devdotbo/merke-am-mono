@@ -1,0 +1,48 @@
+I'll read the shared context and fetch Apify primary sources (pricing, API rate limits, X/Twitter scraper info, SDK pagination/retries, SLA/compliance docs) in parallel to draft the report.
+Read ../../shared/context.md
+
+$ curl -sL https://apify.com/pricing (exit 0)
+
+$ curl -sL https://docs.apify.com/api/v2 (exit 0)
+
+$ curl -sL "https://duckduckgo.com/html/?q=site%3Aapify.com+twitter+scraper+actor" (exit 0)
+
+$ curl -sL "https://duckduckgo.com/html/?q=site%3Adocs.apify.com+api+rate+limits" (exit 0)
+
+$ curl -sL https://apify.com/store (exit 0)
+
+$ curl -sL "https://apify.com/store?query=twitter" (exit 0)
+
+$ curl -sL https://apify.com/curious_coder/twitter-scraper (exit 0)
+I'll pull the API markdown, actor markdown for Twitter, Trust Center/SLA, legal terms, SDK docs (JS/Python), and status page in parallel to extract pricing, rate limits, auth, pagination, and reliability details.
+$ curl -sL https://docs.apify.com/api/v2/api/v2.md (exit 0)
+
+$ curl -sL https://docs.apify.com/api/v2.md (exit 0)
+
+$ curl -sL https://apify.com/curious_coder/twitter-scraper.md (exit 0)
+
+$ curl -sL https://trust.apify.com (exit 0)
+
+$ curl -sL https://status.apify.com (exit 0)
+
+$ curl -sL https://docs.apify.com/platform/actors/compute-units (exit 0)
+
+$ curl -sL https://docs.apify.com/api/client/js/ (exit 0)
+
+$ curl -sL https://docs.apify.com/api/client/python/ (exit 0)
+
+$ curl -sL https://docs.apify.com/legal/general-terms-and-conditions (exit 0)
+
+$ curl -sL https://apify.com/epctex/twitter-scraper (exit 0)
+
+$ bash -lc "curl -sL https://apify.com/epctex/twitter-search-scraper.md; echo '---SEP---'; curl -sL https://apify.com/epctex/twitter-scraper.md; echo '---SEP---'; curl -sL https://apify.com/canadesk/x-twitter.md; echo '---SEP---'; curl -sL https://apify.com/apidojo/twitter-scraper.md" (exit 0)
+I'll draft `report.md` with the required sections and citations, then save it in the Apify agent directory.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/apify/report.md
+I created `report.md` with required sections, pricing scenario, and dated citations in the Apify folder.
+
+- File: `docs/research/v3/external/agents/apify/report.md`ample are explicit.
+
+Summary:
+- Apify supports X/Twitter via Store actors; per-result pricing visible in Store metadata suggests $0.0004/tweet at paid tiers; a 1M tweets/month scenario estimates ~$400, excluding custom proxy/compute.
+- No specific numeric API rate limits; treat latency as vendor-claimed; platform reliability visible via status page; compliance requires ToS/law adherence.
+- Implementation notes include auth, runs, dataset pagination, retries/backoff, and SDK pointers.

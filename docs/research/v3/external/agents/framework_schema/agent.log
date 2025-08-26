@@ -1,0 +1,33 @@
+I'll open the shared context to align on conventions, then draft `report.md` with a normalized schema and provider mapping notes, and write it to the target directory.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll check for the `shared` directory and `context.md` file location, then read it to base the schema on those conventions.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+I'll look for `context.md` anywhere under the agents directory to confirm its actual location, then proceed.
+Searched files (**/context.md)
+
+Searched files (**/shared/**)
+
+Searched files (**/context.md)
+
+Searched files (**/shared/**)
+Reading the shared context to align on conventions before drafting the schema.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/shared/context.md
+
+Searched files (**/context.md)
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/external/shared/context.md
+
+Searched files (**/context.md)
+
+Searched files (**/shared/**)
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3
+I'll open `docs/research/v3/external/shared/context.md` to align on conventions, then draft and write `report.md`.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_schema/report.md
+- Read the shared context and aligned on external-only constraints.
+- Wrote `report.md` with a normalized X/Twitter schema, including posts, users, threads, media, and rate-limit metadata, plus provider-type mapping notes.
+
+Summary:
+- Added `docs/research/v3/external/agents/framework_schema/report.md` with a concise, provider-agnostic schema and mapping guidance per official API, proxy APIs, proxy networks, headless automation, and OSS libraries.

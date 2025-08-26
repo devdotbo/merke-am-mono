@@ -1,0 +1,12 @@
+I'll open the shared context file to extract constraints and any pricing guidance, then draft and write `report.md` with explicit assumptions, scenarios, retries/backoff, success rates, and sensitivity ranges.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I'll write `report.md` with explicit assumptions, formulas, retries/backoff logic, and low/base/high 1M-post scenarios including sensitivity notes.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_costs/report.md
+- I read `../../shared/context.md` and extracted the required sections and constraints.
+- I created `report.md` in your working directory with explicit assumptions, formulas, retries/backoff, and three 1M-post scenarios plus sensitivity notes.
+
+- Key outputs:
+  - Cost equations with units.
+  - Low/Base/High scenarios with p0, retries, attempt math, and totals.
+  - Retry/backoff pseudocode and implementation notes.
+  - References section indicating that unit prices are placeholders to be replaced with cited vendor pricing.

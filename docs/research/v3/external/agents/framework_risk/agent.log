@@ -1,0 +1,13 @@
+I'll read `../../shared/context.md` to pull the necessary context, then draft `report.md` with a risk matrix and mitigations for provider vs OSS.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll locate the `shared` directory near your current path to read `context.md`, then generate `report.md` accordingly.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+I'll read `docs/research/v3/external/shared/context.md` to extract the constraints and background, then draft `report.md` with probability×impact matrices and mitigations for provider vs OSS.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I'll verify the target directory exists, then write report.md with risk matrices, top risks, and mitigations for provider and OSS.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_risk
+I'll create `report.md` in the framework_risk directory with concise risk matrices (probability×impact), top risks, and mitigations for provider and OSS approaches.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_risk/report.md
+- Wrote `report.md` with concise probability×impact matrices, top risks, and mitigations for both provider and OSS approaches, adhering to the shared context constraints.

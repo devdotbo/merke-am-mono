@@ -1,0 +1,17 @@
+I'll open the shared context to get the required section structure, then draft and write `report.md` in the Oxylabs folder.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll search for the shared context file location to ensure the correct section structure before writing the report.
+Searched files (**/context.md)
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/shared/context.md
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I'll write a structured `report.md` in the Oxylabs folder using the shared context, focusing on sections, pricing units, SLAs, compliance, and adding references with retrieval dates.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/oxylabs/report.md
+I found the shared context and used it to structure the deliverable. I’ve drafted and saved the Oxylabs report.
+
+- Wrote `report.md` to `docs/research/v3/external/agents/oxylabs/` with required sections: executive summary, coverage, rate limits/latency, pricing model with 1M-post scenario assumptions, reliability/SLA emphasis, compliance, implementation notes, and dated references.

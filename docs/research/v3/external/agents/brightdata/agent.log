@@ -1,0 +1,48 @@
+I'll read the shared context file to follow the required report structure, then draft `report.md` in the Bright Data folder.
+Read ../../shared/context.md
+I'll fetch Bright Data pricing, product, and SLA pages plus docs to extract pricing units, rate limits, and Twitter/X specifics, then draft the report.
+$ curl -L -s https://brightdata.com/pricing | head -n 200 (exit 0)
+
+$ curl -L -s https://brightdata.com/products/web-unlocker | head -n 200 (exit 0)
+
+$ curl -L -s https://brightdata.com/service-level-agreement | head -n 200 (exit 0)
+
+$ curl -L -s https://docs.brightdata.com | head -n 200 (exit 0)
+
+$ curl -L -s https://docs.brightdata.com/search?query=twitter | head -n 200 (exit 0)
+I’m going to fetch Bright Data pricing, SLA/terms, trust/compliance pages, network status, and any Twitter/X use-case pages to extract prices, units, SLAs, and relevant claims. Then I’ll write the report file.
+$ curl -L -s https://brightdata.com/pricing/proxy-network/residential-proxies | sed -n '1,300p' (exit 0)
+
+$ curl -L -s https://brightdata.com/pricing/proxy-network/datacenter-proxies | sed -n '1,300p' (exit 0)
+
+$ curl -L -s https://brightdata.com/pricing/proxy-network/mobile-proxies | sed -n '1,300p' (exit 0)
+
+$ curl -L -s https://brightdata.com/pricing/proxy-network/isp-proxies | sed -n '1,300p' (exit 0)
+
+$ curl -L -s https://brightdata.com/pricing/web-unlocker | sed -n '1,300p' (exit 0)
+
+$ curl -L -s https://brightdata.com/billing-api/confs/billing_pricing_conf.js | sed -n '1,200p' (exit 0)
+
+$ curl -L -s https://brightdata.com/network-status | sed -n '1,160p' (exit 0)
+
+$ curl -L -s https://brightdata.com/products/web-unlocker | sed -n '1,1200p' (exit 0)
+
+$ curl -L -s https://brightdata.com/support-services | sed -n '1,200p' (exit 0)
+
+$ curl -L -s https://brightdata.com/acceptable-use-policy | sed -n '1,160p' (exit 0)
+
+$ curl -L -s https://docs.brightdata.com/web-unlocker/overview | sed -n '1,240p' (exit 0)
+
+$ curl -L -s https://brightdata.com/trustcenter | sed -n '1,160p' (exit 0)
+
+$ curl -L -s https://brightdata.com/products/web-scraper/social-media-scrape | sed -n '1,400p' (exit 0)
+
+$ curl -L -s https://docs.brightdata.com/proxies/get-started | sed -n '1,200p' (exit 0)
+I gathered pricing and product details from Bright Data’s site (Web Unlocker, proxy pricing, Browser API), plus Trust Center, Acceptable Use, network status, and Web Unlocker FAQ for success rate. I’ll now write report.md with all required sections and dated citations.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/brightdata/report.md
+- Wrote report.md to the Bright Data folder with all required sections, pricing units, scenario math, vendor-claimed rate/latency notes, SLA/support/compliance posture, implementation notes, and references with retrieval dates.
+
+- Key inclusions:
+  - Unlocker/Crawl per-request pricing; proxy and Browser API per-GB/per-IP starts-from prices.
+  - Vendor-claimed success rate and support posture noted as such.
+  - 1M posts/month cost scenario with assumptions and buffer.

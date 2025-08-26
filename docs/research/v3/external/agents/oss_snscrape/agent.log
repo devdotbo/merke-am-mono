@@ -1,0 +1,21 @@
+I'll open the shared context file to align with your framework and then draft `report.md` accordingly.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll check the directory structure to locate the shared context file, then read it from the correct path.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/oss_snscrape/../../shared/context.md
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll draft the snscrape external-only baseline report covering coverage, maintenance/health, setup, pagination, retries/backoff, anti-bot handling, observability, and maintenance burden, then write it to `report.md` in the specified directory.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/oss_snscrape/report.md
+- I read the shared `context.md` and drafted the external-only baseline report for `snscrape`, then wrote it to `oss_snscrape/report.md`.
+
+- Key outputs:
+  - Coverage, maintenance/health, setup/auth, pagination guidance.
+  - Retry/backoff and anti-bot recommendations.
+  - Observability/maintenance burden and compliance notes.
+  - References with retrieval dates.
+
+If you want a deeper dive (e.g., mapped fields to a normalized schema or sample wrapper code with backoff), I can extend the report.

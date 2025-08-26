@@ -1,0 +1,8 @@
+I'll read `../../shared/context.md` to ground the implementation notes, then draft and write `report.md` in the current directory.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+The previous read path didn't exist. I'll try the corrected path at `docs/research/v3/external/shared/context.md`.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I read the shared context file. I’ll now write `report.md` with implementation notes and the required pseudocode in the specified directory.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_implementation/report.md
+- Wrote `report.md` with implementation notes (auth, pagination, retries, caching, observability) and pseudocode for Apify actor lifecycle, Bright Data proxy usage, and a reusable exponential backoff retry.
+- All content derived only from `external/shared/context.md` as required.

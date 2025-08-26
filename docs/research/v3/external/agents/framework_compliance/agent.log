@@ -1,0 +1,20 @@
+I'll read `../../shared/context.md` to extract the compliance guidance, then draft `report.md` with ToS, API requirements, GDPR/CCPA/DSA, jurisdictions, retention, and mitigations.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external
+
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I'll create `report.md` in the `framework_compliance` directory with concise compliance guidance covering ToS, API requirements, GDPR/CCPA/DSA, jurisdictions, retention, and mitigations.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_compliance/report.md
+- I located the shared context file and extracted the compliance expectations. Now I drafted `report.md` in your `framework_compliance` directory with ToS, API usage, GDPR/CCPA/DSA, jurisdictions, retention, and mitigations.
+
+- Key impact:
+  - Provides an external-only, non-legal compliance summary for X.com.
+  - Highlights when official API is required/safer.
+  - Lists concrete mitigations (public-only, consent-based, minimization, deletion handling).

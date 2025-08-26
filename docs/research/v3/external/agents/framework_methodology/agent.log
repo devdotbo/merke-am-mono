@@ -1,0 +1,22 @@
+I'll open `../../shared/context.md` to extract constraints and terminology, then draft `report.md` accordingly.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll locate and open the shared context file to pull required constraints and terms before drafting the methodology report.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+I'll search the repository for `context.md` and inspect the `external/agents` directory to locate the referenced shared file.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents
+
+Searched files (**/shared/context.md)
+
+Searched files (**/context.md)
+I’ll open the shared context file to extract constraints and required terminology, then draft and write `report.md` in the methodology directory.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I found the shared context file. I’ll draft the methodology and write report.md into the `framework_methodology` directory now.
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/framework_methodology/report.md
+- I located and read `docs/research/v3/external/shared/context.md`. Now I’ve authored `report.md` with methodology, acceptance criteria, quality checks, citation standards, a tools-first process, validation rules, and a cost scenario template, tailored to the shared context.
+
+- Key inclusions:
+  - Tools-first workflow; external-only constraints reflected.
+  - Explicit [Vendor‑claimed] vs [Verified] labeling and recency rules.
+  - Acceptance criteria and quality checks covering sections, evidence, math, and compliance.
+  - Cost scenario template plus a worked example for 1M posts/month.
+  - Reporting standards for both provider and OSS reports, with formatting and references guidance.

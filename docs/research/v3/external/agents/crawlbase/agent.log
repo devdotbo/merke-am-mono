@@ -1,0 +1,52 @@
+I'll read the shared context to get the required report structure, then draft and write `report.md` in the Crawlbase agent directory.
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared/context.md
+I'll look for the shared context file path under the agents folder and list the expected `shared` directory to confirm the correct location, then read it.
+Listed /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/shared
+
+Searched files (docs/research/v3/external/agents/**/context.md)
+
+Read /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/shared/context.md
+I'll fetch Crawlbase pricing and docs pages, plus Bing search results for Twitter-related docs, to extract accurate details and references.
+$ curl -sSL https://crawlbase.com/docs (exit 0)
+
+$ curl -sSL https://crawlbase.com/pricing (exit 0)
+
+$ curl -sSL https://crawlbase.com/docs/scraper-api (exit 0)
+
+$ curl -sSL https://crawlbase.com/docs/crawling-api (exit 0)
+
+$ curl -sSL "https://www.bing.com/search?q=site%3Acrawlbase.com+twitter" (exit 0)
+
+$ curl -sSL "https://www.bing.com/search?q=site%3Aproxycrawl.com+twitter" (exit 0)
+I'll gather Crawlbase docs and pages needed for features, limits, pricing signals, anti-bot, and compliance, then draft and write report.md.
+$ curl -sSL https://crawlbase.com/docs/crawling-api/headless-browsers/ (exit 0)
+
+$ curl -sSL https://crawlbase.com/docs/crawling-api/parameters/ (exit 0)
+
+$ curl -sSL https://crawlbase.com/docs/smart-proxy/ (exit 0)
+
+$ curl -sSL https://status.crawlbase.com (exit 0)
+
+$ curl -sSL https://crawlbase.com/terms (exit 0)
+
+$ bash -lc "curl -sSL https://crawlbase.com/pricing | rg -i 'free|\$[0-9]|per [0-9,]+|per\s*1,?000|request|javascript|js|trial|month|year|plan' -n --passthru | sed -n '1,300p'" (exit 0)
+
+$ curl -sSL "https://www.bing.com/search?q=Crawlbase+pricing+per+1000+requests" (exit 0)
+
+$ curl -sSL "https://www.bing.com/search?q=Crawlbase+pricing+plans" (exit 0)
+I'll add a concise report now based on the gathered Crawlbase sources, then write report.md in the Crawlbase agent directory.
+$ curl -sSL https://crawlbase.com/docs/status-codes/ (exit 0)
+
+$ curl -sSL https://crawlbase.com/docs/smart-proxy/headers-cookies/ (exit 0)
+
+$ curl -sSL https://crawlbase.com/privacy (exit 0)
+
+Wrote /home/user/git/2025_2/wavehack/merke-am/merke-am-landing/docs/research/v3/external/agents/crawlbase/report.md
+- Wrote `report.md` in `docs/research/v3/external/agents/crawlbase` with required sections, X/Twitter coverage, rate limits, JS/anti‑bot notes, pricing scenario, implementation tips, and full references with retrieval dates.
+
+- Key highlights:
+  - 20 rps per token; avg 4–10s latency; 90s timeout recommended.
+  - JS token enables real browsers; `scroll=true` supports infinite scroll.
+  - Smart Proxy forwards headers/cookies; blank User-Agent gets rotated.
+  - Scraper API sunset for new signups; use Crawling API + Smart Proxy.
+  - Pricing not transparent; included scenario math and flagged assumptions.
