@@ -6,12 +6,28 @@ import { api } from "@convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+function getClientId(): string {
+  if (typeof window === "undefined") return "ssr";
+  const key = "chat.clientId";
+  const exist = window.sessionStorage.getItem(key);
+  if (exist) return exist;
+  const id = crypto.randomUUID();
+  window.sessionStorage.setItem(key, id);
+  return id;
+}
+
 export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?: string }) {
   const [threadId] = useState<string>(defaultThreadId);
   const [message, setMessage] = useState("");
   const list = useQuery(api.chat.list, { threadId }) || [];
   const send = useMutation(api.chat.send);
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const clientId = useMemo(() => getClientId(), []);
+  const [username] = useState<string>(() => {
+    if (typeof window === "undefined") return "guest";
+    const stored = window.localStorage.getItem("canvas.username");
+    return stored || "guest";
+  });
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,17 +37,20 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
     const text = message.trim();
     if (!text) return;
     setMessage("");
-    await send({ threadId, content: text });
+    await send({ threadId, content: text, clientId, username });
   }
 
   return (
     <div className="w-full max-w-2xl rounded-2xl border border-border bg-background">
       <div className="p-4 space-y-3 h-64 overflow-y-auto">
-        {list.map((m) => (
-          <div key={m._id} className="text-sm">
-            <span className="font-medium text-foreground/80">{m.role === "assistant" ? "AI" : "You"}:</span> {m.content}
-          </div>
-        ))}
+        {list.map((m) => {
+          const label = m.role === "assistant" ? "AI" : m.clientId && m.clientId === clientId ? "You" : m.username || "User";
+          return (
+            <div key={m._id} className="text-sm">
+              <span className="font-medium text-foreground/80">{label}:</span> {m.content}
+            </div>
+          );
+        })}
         <div ref={bottomRef} />
       </div>
       <div className="p-3 border-t border-border flex gap-2">
