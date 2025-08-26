@@ -33,7 +33,7 @@ export default function AppHeader() {
         {isConnected ? (
           <Button
             variant="outline"
-            onClick={() => open()}
+            onClick={() => void open()}
             className="flex items-center gap-2 border-border/60"
           >
             {ensAvatar ? (
@@ -48,7 +48,7 @@ export default function AppHeader() {
         ) : (
           <Button
             variant="outline"
-            onClick={() => open()}
+            onClick={() => void open()}
             className="flex items-center gap-2 border-border/60"
           >
             <Wallet className="w-4 h-4" />
