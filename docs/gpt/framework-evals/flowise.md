@@ -45,3 +45,24 @@ Open‑source visual builder for LLM/RAG workflows ("chatflows"). Drag‑and‑d
 
 ### Recommendation
 Use Flowise when you need embeddable AI chat/RAG quickly and can accept limited editor embedding and iPaaS features. For broad connectors, webhooks/schedules/retries, prefer Activepieces or Node‑RED, or build a custom React Flow editor plus a bespoke executor.
+
+### Embedding checklist
+1) Decide: widget vs REST. For widget, secure key scoping; for REST, implement auth/tenancy middleware.
+2) Provision flows and credentials per tenant; restrict provider keys and models via policy.
+3) Add streaming SSE with abort support; surface token usage and latency metrics.
+4) Implement observability: prompt/response logging with PII redaction and sampling.
+5) Rate limits/backoff for provider APIs; retries with jitter; circuit breakers.
+6) For iframe editor, set SSO, CORS, and brand theme; document limits.
+
+### Fit signals
+- AI chat/RAG is the primary use case and you need speed to value.
+- Simple chat embedding suffices; editor white‑label is not required.
+
+### Risks / open questions
+- Multi‑tenant isolation of credentials and data; rotation processes.
+- Lack of schedulers/workers; suitability for background jobs.
+- Export/import stability and flow versioning between releases.
+
+### References (last reviewed: 2025‑08‑28)
+- Docs: https://docs.flowiseai.com
+- GitHub: https://github.com/FlowiseAI/Flowise

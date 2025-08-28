@@ -31,3 +31,22 @@ High for an in‑app n8n‑style experience: no self‑host, limited theming/whi
 
 ### Recommendation
 Good fit for quick external automations and rich SaaS integrations without owning infrastructure. Not recommended for a fully embedded, in‑app n8n‑like builder; prefer Activepieces/Node‑RED or a custom React Flow editor for that use case.
+
+### Embedding checklist
+1) Expose workflows via HTTP endpoints; secure with HMAC and IP allowlists.
+2) Scope secrets per workspace and environment; rotate regularly.
+3) Implement event replay and DLQ strategies using Pipedream’s retries and your own fallbacks.
+4) Export run logs to your observability stack via API.
+5) Document rate limits and cold‑start behavior to stakeholders.
+
+### Fit signals
+- Developer‑first team comfortable with code steps.
+- External builder is acceptable; need fast connector access.
+
+### Risks / open questions
+- Vendor lock‑in; no self‑host. Data residency compliance needs.
+- Limited white‑label/embed options; UX lives in Pipedream.
+
+### References (last reviewed: 2025‑08‑28)
+- Docs: https://pipedream.com/docs
+- GitHub components: https://github.com/PipedreamHQ/pipedream

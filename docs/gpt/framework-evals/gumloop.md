@@ -34,3 +34,22 @@ Medium: lack of embeddable canvas; identity/secrets live in Gumloop; cross‑ori
 
 ### Recommendation
 Consider for AI/RPA‑like automations where web interaction is central. Not recommended if you need a general‑purpose, embeddable workflow editor or strict data residency.
+
+### Embedding checklist
+1) Confirm API/webhook surface for provisioning and triggering runs per tenant.
+2) Establish SSO or token exchange; map tenants to Gumloop workspaces.
+3) Define secrets strategy (hosted in Gumloop) and data egress controls.
+4) Trial share/embed links in sandbox with CSP, CORS, and clickjacking protections.
+5) Capture run logs via webhooks or API; forward to your observability stack.
+
+### Fit signals
+- Centrality of web browsing/extraction in your automations.
+- Acceptance of hosted execution and vendor‑managed browsing infra.
+
+### Risks / open questions
+- Catalog breadth outside web/RPA; connector gaps vs incumbents.
+- Enterprise RBAC/audit requirements and data residency constraints.
+- Pricing predictability under high‑volume scraping/browsing.
+
+### References (last reviewed: 2025‑08‑28)
+- Site: https://gumloop.com

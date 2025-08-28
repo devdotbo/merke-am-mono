@@ -43,3 +43,23 @@ Klamp.io is positioned as an embedded iPaaS: a hosted, drag‑and‑drop workflo
 
 ### Recommendation
 If you need an embedded integrations marketplace quickly and can accept a hosted control plane, Klamp.io is a pragmatic choice. If you require deep in‑app UX control or self‑hosting, prefer the React Flow “build‑your‑own” path or a self‑hosted platform like Activepieces.
+
+### Embedding checklist
+1) Establish SSO/token exchange for cross‑domain embed; short‑lived tokens and refresh.
+2) Map your tenants→Klamp workspaces; scope secrets/connections accordingly.
+3) Curate connector catalog; pre‑configure OAuth apps and redirect URIs per environment.
+4) Configure webhooks and callback endpoints behind your gateway with allowlists.
+5) Implement audit export: runs, edits, credentials changes to your SIEM.
+6) Define incident processes for failed runs, rate limits, and provider outages.
+
+### Fit signals
+- You want a vendor‑hosted embedded iPaaS with a broad connector set.
+- Your team prefers buying execution/logging/retries rather than building.
+
+### Risks / open questions
+- Data residency, on‑prem options, and SLAs required by your customers.
+- Depth of white‑label theming and component API surface.
+- Pricing at scale (runs/connectors) and overage management.
+
+### References (last reviewed: 2025‑08‑28)
+- Site: https://klamp.io

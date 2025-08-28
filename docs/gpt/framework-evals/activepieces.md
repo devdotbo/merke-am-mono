@@ -42,3 +42,38 @@ Activepieces is an open‑source Zapier/n8n‑style automation platform with a v
 
 ### Recommendation
 If an iframe‑embedded builder is acceptable, Activepieces offers the fastest path to a functioning, self‑hosted automation capability with broad connectors. If you need tight in‑app UX control or domain‑specific nodes, prefer building on `React Flow` and integrating only the Activepieces execution patterns.
+
+### Security and tenancy notes
+- Secrets: stored server‑side; scope to workspace/project. Validate secret at-rest encryption and key rotation strategy.
+- Multi‑tenant isolation: prefer separate DB schemas or instances per tenant for stricter isolation; review RBAC for editors vs runners.
+- Auditing: capture run logs, edits, and credential changes; forward to your SIEM via webhooks or log drains.
+- Compliance: confirm data residency and backups when self‑hosting (Postgres), and ensure webhook ingress egress allowlists.
+
+### Embedding checklist
+1) Identity: establish SSO or signed token handoff to the builder UI; map tenants→projects.
+2) Networking: front builder with your reverse proxy; set CORS, cookie domain, CSRF.
+3) Theming: apply brand via environment/CSS overrides; validate dark/light.
+4) Catalog: curate connector list; hide unfinished connectors; pre-provision OAuth apps.
+5) Governance: define who can publish flows, manage secrets, and view logs.
+6) Observability: export runs to analytics; add alerts on failure rates/latency.
+
+### Fit signals
+- You want OSS, self‑hosted automation with many ready connectors and acceptable iframe embedding.
+- Your product needs webhooks, schedules, retries, and run logs without building an engine.
+- Team is fine with Angular-based editor living as a separate surface behind SSO.
+
+### Anti‑signals / risks
+- Hard requirement for fully native, React‑level editor customization.
+- Need for fine‑grained RBAC, audit trails, or multi‑region data residency beyond what’s available.
+- Deep white‑label and UX parity with your app (beyond branding) is mandatory.
+
+### Open questions to validate
+- SSO: confirm OIDC config paths and session timeouts with your IdP.
+- Rate limits: per‑connector and per‑tenant limits; backoff behaviors.
+- Export/import: portability guarantees and version compatibility across upgrades.
+- Custom connectors: packaging, private distribution, and testing workflow.
+
+### References (last reviewed: 2025‑08‑28)
+- Docs: [Activepieces Documentation](https://www.activepieces.com/docs)
+- GitHub: [activepieces/activepieces](https://github.com/activepieces/activepieces)
+- SDK: [Create custom pieces](https://www.activepieces.com/docs/developers/pieces/overview)

@@ -76,6 +76,23 @@ Drawflow is a lightweight, dependency‑free JavaScript library for building nod
 - Evaluate theming with the theme generator for brand alignment. [2]
 - If TypeScript is required, adopt `@types/drawflow` and add runtime guards around editor API. [1]
 
-References:
+### Embedding checklist
+1) Wrap imperative API in a lightweight component; centralize `editor` access and event wiring.
+2) Define node schema and `data` bindings via `df-*`; validate on form change and on `connectionCreated`.
+3) Persist via `editor.export()` on debounce; use `editor.import()` to restore; add flow versioning.
+4) Implement palette drag‑and‑drop; keyboard shortcuts for delete/undo/redo; enforce connection rules.
+5) Apply theme generator and CSS tokens for brand alignment; test dark mode and high‑contrast.
+6) Guard against large graphs: throttle events, enable reroute to reduce edge overlaps, and test performance budgets.
+
+### Fit signals
+- Need a minimal, framework‑agnostic editor with Vue/HTML node rendering.
+- Team will build/own runtime, logs, retries, and connectors.
+
+### Risks / open questions
+- No official React bindings; TypeScript types are community.
+- Reroute/connection ergonomics vs modern libraries; validate with complex graphs early.
+- Collaboration requires external CRDT wiring; plan for Yjs/Automerge.
+
+### References (last reviewed: 2025‑08‑28)
 - [1] https://github.com/jerosoler/Drawflow
 - [2] https://jerosoler.github.io/Drawflow/

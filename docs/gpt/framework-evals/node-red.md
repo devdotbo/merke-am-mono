@@ -40,3 +40,24 @@ Editor is a full-page web app, not a React widget. Theming and palette curation 
 
 ## Recommendation
 Use Node-RED when you need fast, self-hosted automation with strong IoT/protocol support and a ready runtime. If you need a deeply embedded, brand-matched builder with strict multi-tenant isolation, prefer building with React Flow/Rete.js or evaluate Activepieces for productized automation.
+
+### Embedding checklist
+1) Decide runtime mode: module inside Express vs separate container behind reverse proxy.
+2) Configure `adminAuth`, `httpNodeAuth`, `httpStatic`, and `editorTheme` (palette filters).
+3) Scope workspaces per tenant (separate instances or isolated projects); manage contexts and credentials stores.
+4) Add SSO at gateway (OIDC) and pass identity via headers to nodes if needed.
+5) Implement audit and run log export; integrate Projects with your VCS for change control.
+6) Curate node catalog; vet licenses and security posture of community nodes.
+
+### Fit signals
+- Need protocol breadth (MQTT, WebSockets, TCP/UDP) and self-hosting.
+- Function node with JS meets custom logic needs.
+
+### Risks / open questions
+- Multi-tenant isolation overhead (many runtimes) and RBAC limits.
+- Theming/brand parity constraints; editor is full-page app.
+- Quality variance across community nodes; require review and pinning.
+
+### References (last reviewed: 2025‑08‑28)
+- Docs: https://nodered.org/docs
+- GitHub: https://github.com/node-red/node-red

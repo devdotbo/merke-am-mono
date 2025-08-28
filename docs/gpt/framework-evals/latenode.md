@@ -34,3 +34,22 @@ Medium–high: no SDK for multi‑tenant in‑app builder; identity and secrets 
 
 ### Recommendation
 Use when you need a quick, cloud‑hosted automation layer and can keep users inside Latenode’s UI. Not recommended if you require an embeddable, white‑label builder or self‑hosted execution.
+
+### Embedding checklist
+1) Confirm webhook/API surface for external triggers; create per‑tenant endpoints.
+2) Evaluate iframe/deep‑link approach with SSO and CSP headers.
+3) Define secrets ownership (in Latenode) and rotation policies.
+4) Capture run logs via API; forward to your analytics/observability.
+5) Validate retries, schedules, and limits under load; test cold‑start.
+
+### Fit signals
+- Need fast prototyping with JS code nodes and minimal ops.
+- Hosted execution is acceptable; editor living outside your app is fine.
+
+### Risks / open questions
+- White‑label/embed limitations; UX parity not achievable.
+- Catalog breadth vs incumbents; custom API coverage via code node.
+- Data residency/compliance for enterprise customers.
+
+### References (last reviewed: 2025‑08‑28)
+- Site: https://latenode.com

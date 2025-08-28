@@ -34,3 +34,22 @@ High: platform‑scale product, opinionated UX, and infra requirements; not aime
 
 ### Recommendation
 Choose only if you have industrial/IoT requirements and can adopt a standalone enterprise platform. For embedding in a web app, prefer lighter, embeddable options.
+
+### Embedding checklist
+1) Treat as standalone platform; integrate via SSO/portal links.
+2) Define data ingress/egress contracts (MQTT, REST, DB) and network security.
+3) Map tenants to Rayven workspaces/projects; audit scopes and roles.
+4) Establish data residency, backup, and HA/DR documentation.
+5) Plan incident response and change‑control aligned with vendor processes.
+
+### Fit signals
+- Industrial protocols and real‑time pipelines are core requirements.
+- Need enterprise SLAs, HA/DR, and managed services.
+
+### Risks / open questions
+- Embedding is limited; UX remains in Rayven’s portal.
+- Vendor services dependency and lead times.
+- Total cost of ownership vs building lighter solutions.
+
+### References (last reviewed: 2025‑08‑28)
+- Site: https://rayven.io

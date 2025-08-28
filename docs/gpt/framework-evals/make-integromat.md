@@ -38,3 +38,24 @@ High. The editor cannot be embedded as a React/JS component, and there is no sel
 
 ### Recommendation
 Use Make when connector breadth and speed outweigh the need for an in-app, embeddable builder. For a productized, “n8n-like” editor inside your app or for self-hosting, prefer Activepieces or a custom React Flow/Rete.js editor plus your own executor. Consider Make via deep links and webhooks only if externalizing the builder is acceptable.
+
+### Embedding checklist
+1) Decide deep-link vs iframe; configure SSO (SAML/OIDC) for seamless navigation.
+2) Provision templates and scenarios via API where available; pre-fill connections.
+3) Implement webhooks and HTTP endpoints with IP allowlists and auth verification.
+4) Capture run logs and errors via exports/API into your SIEM/analytics.
+5) Establish governance for scenario ownership, access, and change control.
+6) Model cost: operations/limits; alert on approaching quotas.
+
+### Fit signals
+- You prioritize connector breadth, powerful mapping, and operational maturity.
+- Externalizing the editor is acceptable within your product experience.
+
+### Risks / open questions
+- OEM/white‑label constraints and licensing terms for embedding.
+- Data residency and compliance coverage for your customers.
+- API coverage for provisioning and template parameterization.
+
+### References (last reviewed: 2025‑08‑28)
+- Site: https://www.make.com
+- Help: https://www.make.com/en/help
