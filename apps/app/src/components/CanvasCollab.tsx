@@ -7,9 +7,10 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import type { Id } from "@convex/_generated/dataModel";
 
 type NodeItem = {
-  id: string;
+  id: Id<"canvas_nodes">;
   label: string;
   kind: string;
   icon: React.ReactNode;
@@ -60,18 +61,19 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   const [nodes, setNodes] = useState<Array<NodeItem>>([]);
 
   const [view, setView] = useState<{ x: number; y: number; scale: number }>({ x: 0, y: 0, scale: 1 });
-  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [draggingId, setDraggingId] = useState<Id<"canvas_nodes"> | null>(null);
   const dragOffset = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
   const [panning, setPanning] = useState<boolean>(false);
   const panStart = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Convex: load and persist nodes
-  const dbNodes = useQuery(api.canvas.listNodes, { roomId }) || [];
+  const dbNodes = useQuery(api.canvas.listNodes, { roomId });
   const upsertNode = useMutation(api.canvas.upsertNode);
   const deleteNodeMutation = useMutation(api.canvas.deleteNode);
 
   // Map db nodes to local state with icons
   useEffect(() => {
+    if (!dbNodes) return;
     const withIcons: Array<NodeItem> = dbNodes.map((n) => ({
       id: n._id,
       label: n.label,
@@ -92,6 +94,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
 
   // Seed defaults if empty
   useEffect(() => {
+    // Only seed once data has loaded and there are no nodes
     if (!dbNodes || dbNodes.length > 0) return;
     const seed = async () => {
       await upsertNode({ roomId, kind: "data", label: "Data Sources", x: 140, y: 120 });
@@ -186,7 +189,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     if (draggingId) {
       const moved = nodes.find((n) => n.id === draggingId);
       if (moved) {
-        void upsertNode({ roomId, id: moved.id as any, kind: moved.kind, label: moved.label, x: moved.x, y: moved.y });
+        void upsertNode({ roomId, id: moved.id, kind: moved.kind, label: moved.label, x: moved.x, y: moved.y });
       }
     }
     setDraggingId(null);
@@ -208,7 +211,7 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     setView({ x: 0, y: 0, scale: 1 });
   }, []);
 
-  const onNodeMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>, id: string) => {
+  const onNodeMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>, id: Id<"canvas_nodes">) => {
     e.stopPropagation();
     const world = toWorld(e.clientX, e.clientY);
     const node = nodes.find((n) => n.id === id);
@@ -217,9 +220,9 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     setDraggingId(id);
   }, [nodes, toWorld]);
 
-  const removeNode = useCallback((id: string) => {
+  const removeNode = useCallback((id: Id<"canvas_nodes">) => {
     setNodes((prev) => prev.filter((n) => n.id !== id));
-    void deleteNodeMutation({ id: id as any });
+    void deleteNodeMutation({ id });
   }, [deleteNodeMutation]);
 
   return (
@@ -320,5 +323,3 @@ export function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
 }
 
 export default CanvasCollab;
-
-
