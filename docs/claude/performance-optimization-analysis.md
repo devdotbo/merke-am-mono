@@ -390,13 +390,13 @@ export const listMessages = query({
 |-------------|---------|---------|----------|----------|
 | Debounced presence updates | High | Low | P0 | Immediate |
 | Canvas node memoization | High | Low | P0 | Immediate |
-| Dynamic imports | High | Medium | P1 | Week 1 |
-| Virtual scrolling for chat | Medium | Medium | P1 | Week 1 |
+| Dynamic imports | High | Medium | P1 | HIGH Priority |
+| Virtual scrolling for chat | Medium | Medium | P1 | HIGH Priority |
 | RAF for animations | High | Low | P0 | Immediate |
-| Viewport culling | High | Medium | P1 | Week 1 |
-| Message pagination | Medium | Medium | P2 | Week 2 |
-| Optimistic updates | Medium | Medium | P2 | Week 2 |
-| Bundle analysis setup | Low | Low | P2 | Week 2 |
+| Viewport culling | High | Medium | P1 | HIGH Priority |
+| Message pagination | Medium | Medium | P2 | MEDIUM Priority |
+| Optimistic updates | Medium | Medium | P2 | MEDIUM Priority |
+| Bundle analysis setup | Low | Low | P2 | MEDIUM Priority |
 | Web Workers for heavy computation | Low | High | P3 | Future |
 
 ## Monitoring and Metrics

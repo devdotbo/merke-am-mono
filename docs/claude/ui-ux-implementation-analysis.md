@@ -332,25 +332,25 @@ design-system/
 
 ### Implementation Roadmap
 
-#### Phase 1: Foundation (Week 1-2)
+#### Priority Level 1: Foundation (CRITICAL)
 - Audit existing components
 - Create design token system
 - Establish accessibility guidelines
 - Set up component documentation
 
-#### Phase 2: Core Components (Week 3-4)
+#### Priority Level 2: Core Components (HIGH)
 - Rebuild primitive components
 - Implement accessibility features
 - Add comprehensive testing
 - Create Storybook stories
 
-#### Phase 3: Advanced Features (Week 5-6)
+#### Priority Level 3: Advanced Features (MEDIUM)
 - Build composite components
 - Implement animation system
 - Add performance monitoring
 - Create usage documentation
 
-#### Phase 4: Migration (Week 7-8)
+#### Priority Level 4: Migration (LOW)
 - Migrate existing components
 - Update application code
 - Performance optimization
@@ -445,17 +445,17 @@ The merke-am application demonstrates solid foundations with modern React patter
    - Add error boundaries and fallbacks
    - Fix mobile viewport issues
 
-2. **Short-term** (1-2 weeks):
+2. **Short-term** (HIGH Priority):
    - Enhance accessibility with ARIA
    - Implement loading states
    - Optimize animation performance
 
-3. **Medium-term** (1 month):
+3. **Medium-term** (MEDIUM Priority):
    - Build comprehensive design system
    - Add touch gesture support
    - Implement performance monitoring
 
-4. **Long-term** (2-3 months):
+4. **Long-term** (LOW Priority):
    - Full WCAG 2.1 AA compliance
    - Advanced animation choreography
    - Complete mobile experience redesign

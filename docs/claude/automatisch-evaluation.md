@@ -274,10 +274,10 @@ Given your collaborative canvas application needs, consider:
 - Visual workflow builder patterns
 
 ### Integration Complexity: **Moderate**
-- API integration: 2-3 days
-- Basic embedding: 1 day
-- Full integration with auth: 1 week
-- Custom UI development: 2-3 weeks
+- API integration: Low complexity
+- Basic embedding: Minimal effort
+- Full integration with auth: Moderate complexity
+- Custom UI development: High complexity
 
 ### Maintenance Requirements: **Low-Moderate**
 - Regular updates needed

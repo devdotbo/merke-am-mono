@@ -186,17 +186,17 @@ XState is a JavaScript/TypeScript library for creating, interpreting, and execut
 
 ## Implementation Strategy
 
-### Phase 1: Proof of Concept
+### Priority Level 1: Proof of Concept (HIGH)
 1. Implement canvas drag/drop as state machine
 2. Create collaboration session machine
 3. Evaluate performance and DX
 
-### Phase 2: Core Integration
+### Priority Level 2: Core Integration (CRITICAL)
 1. Replace canvas state management
 2. Integrate with Convex subscriptions
 3. Implement undo/redo system
 
-### Phase 3: Full Migration
+### Priority Level 3: Full Migration (MEDIUM)
 1. Convert chat state to machines
 2. Form validation machines
 3. Global app state orchestration
@@ -560,7 +560,7 @@ Total Addition: ~18kb production, ~48kb development
 - **Testability**: Deterministic tests for critical paths
 
 ### Weaknesses
-- **High learning curve**: Team needs 2-4 weeks to be productive
+- **High learning curve**: Requires significant team training investment
 - **Overkill for simple state**: Don't use for basic toggles
 - **Bundle size concern**: Adds meaningful weight
 - **Verbosity**: 3-4x more code than hooks for simple cases
@@ -581,17 +581,19 @@ Total Addition: ~18kb production, ~48kb development
 
 ### Migration Strategy
 
-**Phase 1 (2 weeks)**: 
-- Implement canvas drag/select as proof of concept
-- Team training on core concepts
-- Establish patterns and conventions
+**Priority-Based Implementation**:
 
-**Phase 2 (3 weeks)**:
+**CRITICAL Priority**:
 - Migrate collaboration session management
 - Integrate with Convex subscriptions
 - Build reusable machine patterns
 
-**Phase 3 (2 weeks)**:
+**HIGH Priority**: 
+- Implement canvas drag/select as proof of concept
+- Team training on core concepts
+- Establish patterns and conventions
+
+**MEDIUM Priority**:
 - Evaluate results and team feedback
 - Decide on broader adoption
 - Document best practices
@@ -600,7 +602,7 @@ Total Addition: ~18kb production, ~48kb development
 
 **Investment Required:**
 - 20-40 hours per developer to become proficient
-- 1-2 weeks of slower development initially
+- Initial productivity impact during learning phase
 - Ongoing learning for advanced patterns
 
 **Expected Benefits:**

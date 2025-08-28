@@ -281,19 +281,19 @@ aria-label="Remove node"
 
 ## 14. Immediate Action Items
 
-### Week 1
+### Priority Level 1: Critical Foundation
 - [ ] Set up Vitest testing framework
 - [ ] Add error boundaries to main layout
 - [ ] Implement environment variable validation
 - [ ] Add security headers to Next.js config
 
-### Week 2
+### Priority Level 2: Core Improvements (HIGH)
 - [ ] Create first unit tests for critical components
 - [ ] Decompose CanvasCollab component
 - [ ] Add input validation with Zod
 - [ ] Implement basic accessibility improvements
 
-### Week 3
+### Priority Level 3: Infrastructure (MEDIUM)
 - [ ] Set up CI/CD with GitHub Actions
 - [ ] Add pre-commit hooks with Husky
 - [ ] Document component APIs
