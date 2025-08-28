@@ -1,53 +1,43 @@
-# bpmn-js — Embeddable n8n-like Editor Evaluation
+### Overview
+`bpmn-js` is a browser-based BPMN 2.0 renderer/modeler from bpmn.io. It offers a rich, standards-compliant editor, not a runtime.
 
-- Source: docs/gpt/n8n-like-options.md (single source)
+### Embedding model
+- Import as ESM; mount `Modeler` into a DOM node.
+- Integrate with React/Vue via thin wrappers; use APIs/events.
+- Save/load BPMN XML; export SVG; extend via modules (palette, context pad, properties panel).
 
-## Overview
+### Licensing
+MIT. Commercial support via Camunda/bpmn.io.
 
-Standards-based BPMN modeling; noted for enterprise workflows. MIT license. Pair with an engine (Camunda/Zeebe).
+### Execution engine
+None. Pair with Camunda 7/8 (Zeebe), Flowable, or jBPM to execute BPMN XML.
 
-## Embeddability
+### Connectors/integrations
+None built-in. Use engine-side connectors/job workers; attach metadata via BPMN extension elements.
 
-Not specified in source file.
+### Embedding friction
+- You own XML persistence, validation, and versioning.
+- Custom tasks need extension elements and custom renderers.
+- Properties panel/forms are separate packages; theming via CSS.
 
-## Node/Edge Model
+### Pros
+- Standards-based BPMN; mature, well-documented.
+- Powerful modeling UX; reliable import/export.
+- Highly extensible via modules and moddle extensions.
+- Large ecosystem (Camunda/Zeebe/Flowable).
 
-Not specified in source file.
+### Cons
+- No executor; separate engine and infrastructure required.
+- BPMN semantics add learning curve for non-experts.
+- Harder to mimic n8n-like node UX than generic canvas libs.
+- No connector catalog, run logs, or retries out of the box.
 
-## Execution Considerations
+### POC steps
+1) Embed `bpmn-js` in a React page with properties panel.
+2) Model StartEvent → ServiceTask (HTTP) → EndEvent; add extension metadata.
+3) Export BPMN XML and deploy to Camunda 8 (Zeebe) or Camunda 7.
+4) Implement a worker/connector to perform the HTTP call; run a test.
+5) Show run status via engine APIs and link to the diagram.
 
-Pair with an engine (Camunda/Zeebe).
-
-## Integrations
-
-Not specified in source file.
-
-## Observability & Collaboration
-
-Not specified in source file.
-
-## Licensing
-
-MIT.
-
-## Pros
-
-- MIT license
-- Standards-based BPMN modeling
-- Mentioned for enterprise workflows
-
-## Cons
-
-Not specified in source file.
-
-## Recommended POC
-
-Not specified in source file.
-
-## Decision Guidance Fit Notes
-
-For BPMN/enterprise ops, consider bpmn-js + engine.
-
-## Next Steps
-
-Not specified in source file.
+### Recommendation
+Adopt `bpmn-js` when BPMN compliance and engine-backed execution are required. For an n8n-like in-app builder, prefer `React Flow` (build) or `Activepieces` (buy).
