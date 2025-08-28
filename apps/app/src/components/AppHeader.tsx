@@ -27,7 +27,7 @@ export default function AppHeader() {
 
   return (
     <div className="flex justify-between items-center mb-8">
-      <div className="text-2xl font-semibold text-foreground brand-underline">merke.am</div>
+      <a href="/demo" className="text-2xl font-semibold text-foreground brand-underline">merke.am</a>
       <div className="flex items-center gap-2">
         <ModeToggle />
         {isConnected ? (
