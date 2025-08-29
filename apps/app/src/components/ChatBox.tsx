@@ -6,6 +6,8 @@ import { api } from "@convex/_generated/api";
 import { useConvexAuth } from "convex/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
+import { useAppKit } from "@reown/appkit/react";
 
 function getClientId(): string {
   if (typeof window === "undefined") return "ssr";
@@ -25,6 +27,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
   const send = useMutation(api.chat.send);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const clientId = useMemo(() => getClientId(), []);
+  const { open } = useAppKit();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
     const stored = window.localStorage.getItem("canvas.username");
@@ -40,7 +43,16 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
     if (!text) return;
     setMessage("");
     if (!isAuthenticated) {
-      alert("Please sign in with your wallet to chat.");
+      toast("Connect wallet to chat", {
+        description: "Please sign in with your wallet to send messages.",
+        action: {
+          label: "Connect wallet",
+          onClick: () => {
+            void open();
+          },
+        },
+        duration: 5000,
+      });
       return;
     }
     await send({ threadId, content: text, clientId, username });
@@ -71,7 +83,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
             void handleSend();
           }
         }} />
-        <Button className="border-2" onClick={() => void handleSend()} disabled={!isAuthenticated} variant="outline">Send</Button>
+        <Button className="border-2" onClick={() => void handleSend()} disabled={message.trim().length === 0} variant="outline">Send</Button>
       </div>
     </div>
   );
