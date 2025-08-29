@@ -28,28 +28,28 @@ if (!projectId) {
 	console.error('AppKit projectId is missing. Set NEXT_PUBLIC_PROJECT_ID')
 }
 
-let appKitReady = false;
 export let modal: ReturnType<typeof createAppKit> | null = null;
-try {
-	modal = createAppKit({
-		adapters: [wagmiAdapter],
-		projectId,
-		networks,
-		metadata,
-		features: {
-			analytics: true // Optional - defaults to your Cloud configuration
-		},
-		// Prefer CSS variable overrides in globals.css for AppKit theming
-		siwx: new ReownAuthentication()
-	});
-	appKitReady = true;
-} catch (err) {
-	// eslint-disable-next-line no-console
-	console.error('AppKit initialization failed:', err);
-}
+export const appKitInitialized = (() => {
+	try {
+		modal = createAppKit({
+			adapters: [wagmiAdapter],
+			projectId,
+			networks,
+			metadata,
+			features: {
+				analytics: true // Optional - defaults to your Cloud configuration
+			},
+			// Prefer CSS variable overrides in globals.css for AppKit theming
+			siwx: new ReownAuthentication()
+		});
+		return true;
+	} catch (err) {
+		console.error('AppKit initialization failed:', err);
+		return false;
+	}
+})();
 
 function AppKitThemeSync() {
-	if (!appKitReady) return null;
 	const { theme, systemTheme } = useTheme()
 	const kitTheme = useAppKitTheme() as unknown as { setThemeMode?: (mode: 'light' | 'dark') => void } | null
 
@@ -75,7 +75,7 @@ function ContextProvider({ children, cookies }: { children: ReactNode; cookies: 
 			<ConvexAuthProvider client={convex}>
 				<QueryClientProvider client={queryClient}>
 					<AuthBridge />
-					<AppKitThemeSync />
+					{appKitInitialized ? <AppKitThemeSync /> : null}
 					{children}
 				</QueryClientProvider>
 			</ConvexAuthProvider>
