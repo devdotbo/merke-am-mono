@@ -1,0 +1,95 @@
+---
+description: Use claude-mcp-d to run Claude Code headless with --model opus (permissionless)
+globs:
+alwaysApply: false
+---
+
+Use this rule when you want to run Claude Code from scripts/automation in headless mode without permission prompts. Always invoke the CLI as `claude-mcp-d` (not `claude`) and always pass `--model opus`.
+
+- Always use: `claude-mcp-d`
+- Always include: `--model opus`
+- Prefer non-interactive runs with `-p`/`--print`
+- For programmatic use, prefer `--output-format json` or `--output-format stream-json`
+- Use `--cwd` to set the working directory for repo-relative operations
+- Use sessions via `--continue` or `--resume` for multi-turn flows
+
+Basic usage (non-interactive)
+```bash
+claude-mcp-d -p "Stage my changes and write a set of commits for them" \
+  --cwd /path/to/project \
+  --model opus
+```
+
+JSON output (structured)
+```bash
+claude-mcp-d -p "Explain file src/components/Header.tsx" \
+  --output-format json \
+  --cwd /path/to/project \
+  --model opus
+```
+
+Streaming JSON output
+```bash
+claude-mcp-d -p "Build an application" \
+  --output-format stream-json \
+  --cwd /path/to/project \
+  --model opus
+```
+
+Multi‑turn conversations
+```bash
+# Continue the most recent conversation
+claude-mcp-d --continue "Now refactor this for better performance" \
+  --cwd /path/to/project \
+  --model opus
+
+# Resume a specific conversation by session ID
+claude-mcp-d --resume 550e8400-e29b-41d4-a716-446655440000 "Update the tests" \
+  --cwd /path/to/project \
+  --model opus
+
+# Resume in non-interactive mode
+claude-mcp-d --resume 550e8400-e29b-41d4-a716-446655440000 \
+  "Fix all linting issues" \
+  --no-interactive \
+  --cwd /path/to/project \
+  --model opus
+```
+
+Session management pattern
+```bash
+session_id=$(claude-mcp-d -p "Start session" --output-format json --model opus | jq -r '.session_id')
+claude-mcp-d -p --resume "$session_id" "Follow up with the next step" --model opus
+```
+
+Streaming JSON input (stdin)
+```bash
+echo '{"type":"user","message":{"role":"user","content":[{"type":"text","text":"Explain this code"}]}}' \
+  | claude-mcp-d -p --output-format=stream-json --input-format=stream-json --verbose --model opus
+```
+
+Programmatic best practices
+```bash
+# Parse JSON response with jq
+result=$(claude-mcp-d -p "Generate code" --output-format json --model opus)
+code=$(echo "$result" | jq -r '.result')
+
+# Handle errors gracefully
+if ! claude-mcp-d -p "$prompt" --model opus 2>error.log; then
+  echo "Error occurred:" >&2
+  cat error.log >&2
+  exit 1
+fi
+
+# Consider timeouts for long runs
+timeout 300 claude-mcp-d -p "$complex_prompt" --model opus || echo "Timed out after 5 minutes"
+```
+
+Notes
+- Do not configure or handle permission prompts; `claude-mcp-d` is used specifically to bypass interactive permission flows.
+- You may optionally scope tools with `--allowedTools` when needed, but it is not required for headless runs.
+
+References
+- Claude Code headless mode documentation: https://docs.anthropic.com/en/docs/claude-code/sdk/sdk-headless.md
+- Cursor rules (MDC) documentation: https://docs.cursor.com/en/context/rules
+
