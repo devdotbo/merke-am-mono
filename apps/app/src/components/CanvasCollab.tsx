@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import ReactFlow, {
   Background,
   Controls,
@@ -19,7 +19,8 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import type { Id } from "@convex/_generated/dataModel";
 
-type RFNode = Node<{ label: string; kind: string }>;
+type RFNodeData = { label: string; kind: string };
+type RFNode = Node<RFNodeData>;
 type RFEdge = Edge;
 
 export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
@@ -38,8 +39,8 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     }));
   }, [dbNodes]);
 
-  const [nodes, setNodes, onNodesChangeBase] = useNodesState<RFNode>(initialNodes);
-  const [edges, setEdges, onEdgesChangeBase] = useEdgesState<RFEdge>([]);
+  const [nodes, setNodes] = useNodesState<RFNodeData>(initialNodes);
+  const [edges, setEdges] = useEdgesState([]);
 
   // Keep local nodes in sync when dbNodes change
   useEffect(() => {
@@ -63,9 +64,9 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     // no-op here; we persist in onNodeDragStop below
   }, []);
 
-  const onNodeDragStop = useCallback(async (_: React.MouseEvent, node: RFNode) => {
+  const onNodeDragStop = useCallback((_: React.MouseEvent, node: RFNode) => {
     const id = node.id as unknown as Id<"canvas_nodes">;
-    await upsertNode({
+    void upsertNode({
       id,
       roomId,
       kind: node.data?.kind ?? "generic",
@@ -75,11 +76,10 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     });
   }, [roomId, upsertNode]);
 
-  const onNodesDelete = useCallback(async (deleted: RFNode[]) => {
-    for (const n of deleted) {
-      const id = n.id as unknown as Id<"canvas_nodes">;
-      await deleteNode({ id });
-    }
+  const onNodesDelete = useCallback((deleted: RFNode[]) => {
+    void Promise.all(
+      deleted.map((n) => deleteNode({ id: n.id as unknown as Id<"canvas_nodes"> }))
+    );
   }, [deleteNode]);
 
   // Seed defaults if empty

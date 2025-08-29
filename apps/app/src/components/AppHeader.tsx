@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
 import React from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Wallet } from "lucide-react";
@@ -27,8 +28,9 @@ export default function AppHeader() {
 
   return (
     <div className="flex justify-between items-center mb-8">
-      <a href="/" className="text-2xl font-semibold text-foreground brand-underline">merke.am</a>
+      <Link href="/" className="text-2xl font-semibold text-foreground brand-underline">merke.am</Link>
       <div className="flex items-center gap-2">
+        <Link href="/studio" className="text-sm px-3 py-2 rounded-md border border-border/60 hover:bg-muted/40 transition-colors">Studio</Link>
         <ModeToggle />
         {isConnected ? (
           <Button
