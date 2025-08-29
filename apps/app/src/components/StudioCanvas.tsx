@@ -45,7 +45,7 @@ export default function StudioCanvas({ variant = "card" }: { variant?: "card" | 
 
   const onConnect: OnConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), [setEdges]);
 
-  const wrapper = variant === "plain" ? "h-full" : "h-full rounded-md border border-border overflow-hidden";
+  const wrapper = variant === "plain" ? "h-full" : "h-full rounded-xl border border-border overflow-hidden";
   return (
     <div className={wrapper}>
       <ReactFlow
@@ -59,7 +59,9 @@ export default function StudioCanvas({ variant = "card" }: { variant?: "card" | 
         defaultEdgeOptions={defaultEdgeOptions}
         fitView
       >
-        <Controls showInteractive={false} />
+        <div className="absolute right-2 top-2 z-10">
+          <Controls className="shadow-sm rounded-md bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60" showInteractive={false} />
+        </div>
         <Background />
         <svg>
           <defs>

@@ -64,14 +64,14 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
         })}
         <div ref={bottomRef} />
       </div>
-      <div className="p-3 border-t border-border/60 flex gap-2 sticky bottom-0 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <Input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Say something…" onKeyDown={(e) => {
+      <div className="p-3 border-t border-border flex gap-2 sticky bottom-0 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <Input className="border-2" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Say something…" onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             void handleSend();
           }
         }} />
-        <Button onClick={() => void handleSend()} disabled={!isAuthenticated} variant="outline">Send</Button>
+        <Button className="border-2" onClick={() => void handleSend()} disabled={!isAuthenticated} variant="outline">Send</Button>
       </div>
     </div>
   );

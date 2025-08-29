@@ -26,7 +26,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${serif.variable} antialiased bg-background text-foreground`}>
+      <body className={`${geistSans.variable} ${serif.variable} antialiased bg-background text-foreground`}> 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ContextProvider cookies={cookies}>{children}</ContextProvider>
           <Toaster richColors position="top-right" />

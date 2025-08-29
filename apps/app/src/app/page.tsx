@@ -8,7 +8,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-background">
       <div className="absolute inset-0 [background-image:radial-gradient(hsl(var(--foreground)/0.08)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:linear-gradient(to_bottom,hsl(var(--foreground)/0.25),hsl(var(--foreground)/0.85))]" />
 
-      <div className="relative z-[5] container mx-auto px-4 md:px-8 lg:px-12 xl:px-16 py-6">
+      <div className="relative z-[5] max-w-none px-4 md:px-6 lg:px-8 xl:px-10 py-4">
         <AppHeader />
 
         <ResizableColumns

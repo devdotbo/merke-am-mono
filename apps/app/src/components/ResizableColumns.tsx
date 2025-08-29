@@ -56,7 +56,7 @@ export default function ResizableColumns({ left, right, initial = 33, storageKey
   const rightStyle = useMemo<React.CSSProperties>(() => ({ width: `${100 - leftPct}%` }), [leftPct]);
 
   return (
-    <div ref={containerRef} className="flex gap-0 items-stretch w-full h-[calc(100vh-180px)] select-none">
+    <div ref={containerRef} className="relative flex gap-0 items-stretch w-full h-[calc(100vh-180px)] select-none">
       <div className="min-w-[160px] max-w-[70%] h-full" style={leftStyle}>
         {left}
       </div>
@@ -64,7 +64,7 @@ export default function ResizableColumns({ left, right, initial = 33, storageKey
         role="separator"
         aria-orientation="vertical"
         aria-label="Resize"
-        className={`w-1.5 mx-1 rounded bg-border hover:bg-primary/60 cursor-col-resize ${dragging ? "bg-primary/70" : ""}`}
+        className={`w-px mx-2 bg-border/80 hover:bg-primary/60 cursor-col-resize ${dragging ? "bg-primary/70" : ""}`}
         onMouseDown={onMouseDown}
       />
       <div className="flex-1 h-full" style={rightStyle}>
