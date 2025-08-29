@@ -16,12 +16,18 @@ type Props = {
 
 export default function ResizableColumns({ left, right, initial = 33, storageKey = "layout.split.left", min = 20, max = 60 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [leftPct, setLeftPct] = useState<number>(() => {
-    if (typeof window === "undefined") return initial;
-    const v = window.localStorage.getItem(storageKey);
-    return v ? Math.min(max, Math.max(min, Number(v))) : initial;
-  });
+  // Start with SSR-safe initial value; read persisted value after mount to avoid hydration mismatch
+  const [leftPct, setLeftPct] = useState<number>(initial);
   const [dragging, setDragging] = useState(false);
+
+  // After mount, load persisted width (if any) and clamp between min/max
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const v = window.localStorage.getItem(storageKey);
+    if (!v) return;
+    const pct = Math.min(max, Math.max(min, Number(v)));
+    setLeftPct(pct);
+  }, [storageKey, min, max]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
