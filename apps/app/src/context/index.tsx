@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit } from '@reown/appkit/react'
 import { useAppKitTheme } from '@reown/appkit/react'
 import { ReownAuthentication } from '@reown/appkit-siwx'
-import React, { type ReactNode, useEffect } from 'react'
+import React, { type ReactNode, useEffect, useMemo } from 'react'
 import { useTheme } from 'next-themes'
 import { cookieToInitialState, WagmiProvider } from 'wagmi'
 import { ConvexReactClient } from 'convex/react'
@@ -67,8 +67,8 @@ function AppKitThemeSync() {
 function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
 	const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig, cookies)
 
-	// Convex client for browser; URL inferred from env
-	const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL as string, { verbose: false })
+	// Convex client for browser; memoized to avoid reconnect loops breaking auth
+	const convex = useMemo(() => new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL as string, { verbose: false }), [])
 
 	return (
 		<WagmiProvider config={wagmiAdapter.wagmiConfig} initialState={initialState}>

@@ -14,10 +14,12 @@ const cspDirectives = [
   "default-src 'self'",
   "script-src 'self'",
   // Include self so local stylesheets load; add Google Fonts domain per AppKit docs
-  "style-src 'self' https://fonts.googleapis.com",
+  // Add 'unsafe-inline' to allow AppKit's inline styles
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   // Allow common wallet/media sources and ipfs; retain data/blob for inline assets
   "img-src * 'self' data: blob: https://walletconnect.org https://walletconnect.com https://secure.walletconnect.com https://secure.walletconnect.org https://tokens-data.1inch.io https://tokens.1inch.io https://ipfs.io https://cdn.zerion.io",
-  "font-src 'self' https://fonts.gstatic.com",
+  // Allow fonts from self, Google Fonts, and data URLs for AppKit
+  "font-src 'self' data: https://fonts.gstatic.com",
   [
     "connect-src",
     "'self'",
@@ -70,6 +72,10 @@ const nextConfig: NextConfig = {
     reactCompiler: true,
   },
   headers() {
+    // Disable CSP header unless explicitly enabled
+    if (process.env.NEXT_ENABLE_CSP !== 'true') {
+      return Promise.resolve([])
+    }
     return Promise.resolve([
       {
         source: "/(.*)",

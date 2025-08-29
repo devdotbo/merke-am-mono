@@ -20,21 +20,28 @@ export default function AuthBridge() {
     const resolvedAddress = (wagmiAddress ?? address) || null;
     const anyConnected = Boolean(wagmiConnected || isConnected);
 
+    console.log("[AuthBridge] State:", {
+      anyConnected,
+      resolvedAddress,
+      isAuthenticated,
+      lastAddress: lastAddress.current,
+      signing: signingRef.current
+    });
+
     if (anyConnected && resolvedAddress) {
       const normalized = resolvedAddress.toLowerCase();
-      // Already authenticated: sync lastAddress and skip sign-in
-      if (isAuthenticated) {
-        if (lastAddress.current !== normalized) {
-          lastAddress.current = normalized;
-        }
+      // Already authenticated with same address: nothing to do
+      if (isAuthenticated && lastAddress.current === normalized) {
         return;
       }
-      // Not authenticated: sign in if we haven't tried this address
-      if (lastAddress.current !== normalized) {
+      // Not authenticated or address changed: sign in
+      if (!isAuthenticated || lastAddress.current !== normalized) {
         if (signingRef.current) return; // prevent concurrent sign-ins
         signingRef.current = true;
+        console.log("[AuthBridge] Signing in with address:", normalized);
         void signIn("wallet", { address: normalized })
           .then(() => {
+            console.log("[AuthBridge] Sign-in successful");
             lastAddress.current = normalized;
           })
           .catch((err: unknown) => {
@@ -42,9 +49,9 @@ export default function AuthBridge() {
             const isReconnect = message.includes("Connection lost while action was in flight");
             if (!isReconnect) {
               toast.error("Convex sign-in failed. Check console for details.");
-              console.error("Convex sign-in error:", err);
+              console.error("[AuthBridge] Sign-in error:", err);
             }
-            lastAddress.current = null;
+            // Don't clear lastAddress on error to allow retry
           })
           .finally(() => {
             signingRef.current = false;
@@ -54,6 +61,7 @@ export default function AuthBridge() {
     }
     // When wallet disconnects, sign out of Convex
     if (!anyConnected && isAuthenticated) {
+      console.log("[AuthBridge] Wallet disconnected, signing out");
       void signOut().catch(() => {});
       lastAddress.current = null;
     }
