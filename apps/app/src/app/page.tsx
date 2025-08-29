@@ -1,6 +1,7 @@
 import AppHeader from "@/components/AppHeader";
 import StudioCanvas from "@/components/StudioCanvas";
 import ChatBox from "@/components/ChatBox";
+import ResizableColumns from "@/components/ResizableColumns";
 
 export default function Home() {
   return (
@@ -10,22 +11,14 @@ export default function Home() {
       <div className="relative z-[5] container mx-auto px-4 md:px-8 lg:px-12 xl:px-16 py-6">
         <AppHeader />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 items-stretch">
-          {/* Left column: Chat 1/3 */}
-          <div className="lg:col-span-1 h-[calc(100vh-180px)] flex flex-col">
-            <div className="sr-only">Chat</div>
-            <div className="flex-1 min-h-0">
-              <ChatBox variant="plain" />
-            </div>
-          </div>
-          {/* Right column: Studio 2/3 */}
-          <div className="lg:col-span-2 h-[calc(100vh-180px)] flex flex-col">
-            <div className="sr-only">Studio</div>
-            <div className="flex-1 min-h-0">
-              <StudioCanvas variant="plain" />
-            </div>
-          </div>
-        </div>
+        <ResizableColumns
+          left={<ChatBox variant="plain" />}
+          right={<StudioCanvas variant="plain" />}
+          initial={33}
+          min={20}
+          max={60}
+          storageKey="layout.split.home.left"
+        />
       </div>
     </div>
   );
