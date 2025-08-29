@@ -24,6 +24,9 @@ import TextNode from "@/components/flow/TextNode";
 import ChatNode from "@/components/flow/ChatNode";
 
 type RFNodeData = { label: string; kind: string; roomId: string };
+
+// Define nodeTypes outside of component to prevent React Flow warnings
+const nodeTypes = { text: TextNode, chat: ChatNode } as const;
 type RFNode = Node<RFNodeData>;
 // edges use default type, no explicit alias needed
 
@@ -129,7 +132,7 @@ function CanvasCollabInner({ roomId }: { roomId: string }) {
         onConnect={onConnect}
         onNodeDragStop={onNodeDragStop}
         onNodesDelete={onNodesDelete}
-        nodeTypes={{ text: TextNode, chat: ChatNode }}
+        nodeTypes={nodeTypes}
         fitView
       >
         <div className="absolute bottom-4 right-4 z-20">
