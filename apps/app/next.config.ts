@@ -42,7 +42,9 @@ const cspDirectives = [
     "https://push.walletconnect.org",
     "wss://www.walletlink.org",
     // Convex backend (if configured)
-    convexOrigin
+    convexOrigin,
+    // Allow websocket connections to Convex when NEXT_PUBLIC_CONVEX_URL is ws(s)://
+    convexOrigin.replace(/^http/, "ws")
   ].filter(Boolean).join(" "),
   "frame-src 'self' https://verify.walletconnect.com https://verify.walletconnect.org https://secure.walletconnect.com https://secure.walletconnect.org"
 ].join("; ");
