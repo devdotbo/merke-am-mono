@@ -29,7 +29,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const clientId = useMemo(() => getClientId(), []);
   const { open } = useAppKit();
-  const { address, caipAddress } = useAppKitAccount();
+  const { address, caipAddress, isConnected } = useAppKitAccount();
   const { signIn } = useAuthActions();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
@@ -99,7 +99,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
   return (
     <div className={containerClass}>
       <div className="p-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
-        {!isAuthenticated && !isLoading && (
+        {!isConnected && !isLoading && (
           <div className="text-sm text-muted-foreground italic">
             Connect your wallet to start chatting
           </div>
@@ -119,8 +119,8 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
           className="border-2" 
           value={message} 
           onChange={(e) => setMessage(e.target.value)} 
-          placeholder={isAuthenticated ? "Say something…" : "Connect wallet to chat…"} 
-          disabled={!isAuthenticated}
+          placeholder={isConnected ? "Say something…" : "Connect wallet to chat…"} 
+          disabled={!isConnected}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
@@ -131,10 +131,10 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
         <Button 
           className="border-2" 
           onClick={() => void handleSend()} 
-          disabled={isLoading || (isAuthenticated && message.trim().length === 0)} 
+          disabled={isLoading || (isConnected && message.trim().length === 0)} 
           variant="outline"
         >
-          {isAuthenticated ? "Send" : "Connect"}
+          {isConnected ? "Send" : "Connect"}
         </Button>
       </div>
     </div>
