@@ -28,19 +28,28 @@ if (!projectId) {
 	console.error('AppKit projectId is missing. Set NEXT_PUBLIC_PROJECT_ID')
 }
 
-export const modal = createAppKit({
-	adapters: [wagmiAdapter],
-	projectId,
-	networks,
-	metadata,
-	features: {
-		analytics: true // Optional - defaults to your Cloud configuration
-	},
-	// Prefer CSS variable overrides in globals.css for AppKit theming
-	siwx: new ReownAuthentication()
-})
+let appKitReady = false;
+export let modal: ReturnType<typeof createAppKit> | null = null;
+try {
+	modal = createAppKit({
+		adapters: [wagmiAdapter],
+		projectId,
+		networks,
+		metadata,
+		features: {
+			analytics: true // Optional - defaults to your Cloud configuration
+		},
+		// Prefer CSS variable overrides in globals.css for AppKit theming
+		siwx: new ReownAuthentication()
+	});
+	appKitReady = true;
+} catch (err) {
+	// eslint-disable-next-line no-console
+	console.error('AppKit initialization failed:', err);
+}
 
 function AppKitThemeSync() {
+	if (!appKitReady) return null;
 	const { theme, systemTheme } = useTheme()
 	const kitTheme = useAppKitTheme() as unknown as { setThemeMode?: (mode: 'light' | 'dark') => void } | null
 
