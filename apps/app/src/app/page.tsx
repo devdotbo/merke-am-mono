@@ -1,24 +1,25 @@
 import AppHeader from "@/components/AppHeader";
 import StudioCanvas from "@/components/StudioCanvas";
 import ChatBox from "@/components/ChatBox";
-import ResizableColumns from "@/components/ResizableColumns";
 
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-background">
-      <div className="absolute inset-0 [background-image:radial-gradient(hsl(var(--foreground)/0.08)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:linear-gradient(to_bottom,hsl(var(--foreground)/0.25),hsl(var(--foreground)/0.85))]" />
+      <div className="absolute inset-0 [background-image:radial-gradient(hsl(var(--foreground)/0.08)_1px,transparent_1px)] [background-size:20px_20px]" />
 
-      <div className="relative z-[5] max-w-none px-4 md:px-6 lg:px-8 xl:px-10 py-4">
+      {/* Full-bleed canvas layer */}
+      <div className="absolute inset-0">
+        <StudioCanvas variant="plain" />
+      </div>
+
+      {/* Header overlay */}
+      <div className="absolute top-4 left-4 right-4 z-30">
         <AppHeader />
+      </div>
 
-        <ResizableColumns
-          left={<ChatBox variant="plain" />}
-          right={<StudioCanvas variant="plain" />}
-          initial={33}
-          min={20}
-          max={60}
-          storageKey="layout.split.home.left"
-        />
+      {/* Chat overlay */}
+      <div className="absolute left-4 bottom-4 w-[440px] max-w-[92vw] z-20">
+        <ChatBox variant="card" />
       </div>
     </div>
   );
