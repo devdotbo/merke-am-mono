@@ -67,8 +67,8 @@ const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
   },
-  async headers() {
-    return [
+  headers() {
+    return Promise.resolve([
       {
         source: "/(.*)",
         headers: [
@@ -78,7 +78,7 @@ const nextConfig: NextConfig = {
           }
         ]
       }
-    ]
+    ])
   }
 };
 
