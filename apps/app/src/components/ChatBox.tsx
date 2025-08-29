@@ -17,7 +17,7 @@ function getClientId(): string {
   return id;
 }
 
-export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?: string }) {
+export default function ChatBox({ defaultThreadId = "home", variant = "card" }: { defaultThreadId?: string; variant?: "card" | "plain" }) {
   const [threadId] = useState<string>(defaultThreadId);
   const [message, setMessage] = useState("");
   const { isAuthenticated } = useConvexAuth();
@@ -46,8 +46,13 @@ export default function ChatBox({ defaultThreadId = "home" }: { defaultThreadId?
     await send({ threadId, content: text, clientId, username });
   }
 
+  const containerBase = "w-full h-full flex flex-col";
+  const containerClass = variant === "plain"
+    ? `${containerBase} bg-background`
+    : `${containerBase} rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60`;
+
   return (
-    <div className="w-full h-full rounded-xl border border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex flex-col">
+    <div className={containerClass}>
       <div className="p-4 space-y-3 flex-1 min-h-0 overflow-y-auto">
         {list.map((m) => {
           const label = m.role === "assistant" ? "AI" : m.clientId && m.clientId === clientId ? "You" : m.username || "User";

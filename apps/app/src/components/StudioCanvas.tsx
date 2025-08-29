@@ -39,14 +39,15 @@ const edgeTypes = { turbo: TurboEdge } as const;
 
 const defaultEdgeOptions = { type: "turbo", markerEnd: "edge-circle" } as const;
 
-export default function StudioCanvas() {
+export default function StudioCanvas({ variant = "card" }: { variant?: "card" | "plain" }) {
   const [nodes, , onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect: OnConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), [setEdges]);
 
+  const wrapper = variant === "plain" ? "h-full" : "h-full rounded-md border border-border overflow-hidden";
   return (
-    <div className="h-[calc(100vh-180px)] rounded-md border border-border overflow-hidden">
+    <div className={wrapper}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
