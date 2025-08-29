@@ -54,7 +54,7 @@ function CanvasCollabInner({ roomId }: { roomId: string }) {
       data: { label: n.label, kind: n.kind, roomId },
       type: n.kind === "text" ? "text" : n.kind === "chat" ? "chat" : "default",
     }));
-  }, [dbNodes]);
+  }, [dbNodes, roomId]);
 
   const [nodes, setNodes] = useNodesState<RFNodeData>(initialNodes);
   const [edges, setEdges] = useEdgesState([]);
