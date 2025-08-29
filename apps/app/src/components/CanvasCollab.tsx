@@ -9,6 +9,8 @@ import ReactFlow, {
   applyNodeChanges,
   useEdgesState,
   useNodesState,
+  useReactFlow,
+  ReactFlowProvider,
   type Node,
   type OnNodesChange,
   type OnEdgesChange,
@@ -17,12 +19,25 @@ import ReactFlow, {
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import type { Id } from "@convex/_generated/dataModel";
+import { Button } from "@/components/ui/button";
+import TextNode from "@/components/flow/TextNode";
+import ChatNode from "@/components/flow/ChatNode";
 
-type RFNodeData = { label: string; kind: string };
+type RFNodeData = { label: string; kind: string; roomId: string };
 type RFNode = Node<RFNodeData>;
 // edges use default type, no explicit alias needed
 
 export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
+  return (
+    <div className="h-full w-full overflow-hidden">
+      <ReactFlowProvider>
+        <CanvasCollabInner roomId={roomId} />
+      </ReactFlowProvider>
+    </div>
+  );
+}
+
+function CanvasCollabInner({ roomId }: { roomId: string }) {
   const dbNodes = useQuery(api.canvas.listNodes, { roomId });
   const upsertNode = useMutation(api.canvas.upsertNode);
   const deleteNode = useMutation(api.canvas.deleteNode);
@@ -33,13 +48,15 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     return dbNodes.map((n) => ({
       id: n._id as unknown as string,
       position: { x: n.x, y: n.y },
-      data: { label: n.label, kind: n.kind },
-      type: "default",
+      data: { label: n.label, kind: n.kind, roomId },
+      type: n.kind === "text" ? "text" : n.kind === "chat" ? "chat" : "default",
     }));
   }, [dbNodes]);
 
   const [nodes, setNodes] = useNodesState<RFNodeData>(initialNodes);
   const [edges, setEdges] = useEdgesState([]);
+
+  const { project } = useReactFlow();
 
   // Keep local nodes in sync when dbNodes change
   useEffect(() => {
@@ -92,8 +109,18 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
     void seed();
   }, [dbNodes, roomId, upsertNode]);
 
+  const addNodeAtCenter = useCallback(async (kind: string, label: string) => {
+    const x = typeof window !== "undefined" ? window.innerWidth / 2 : 400;
+    const y = typeof window !== "undefined" ? window.innerHeight / 2 : 300;
+    const pos = project({ x, y });
+    await upsertNode({ roomId, kind, label, x: pos.x, y: pos.y });
+  }, [project, roomId, upsertNode]);
+
+  const addText = useCallback(() => { void addNodeAtCenter("text", "Note"); }, [addNodeAtCenter]);
+  const addChat = useCallback(() => { void addNodeAtCenter("chat", "Chat"); }, [addNodeAtCenter]);
+
   return (
-    <div className="h-[calc(100vh-180px)] rounded-md border border-border overflow-hidden">
+    <div className="h-full w-full overflow-hidden">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -102,8 +129,13 @@ export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
         onConnect={onConnect}
         onNodeDragStop={onNodeDragStop}
         onNodesDelete={onNodesDelete}
+        nodeTypes={{ text: TextNode, chat: ChatNode }}
         fitView
       >
+        <div className="absolute left-2 top-2 z-20 flex gap-2">
+          <Button size="sm" variant="outline" onClick={addText}>Add Text</Button>
+          <Button size="sm" variant="outline" onClick={addChat}>Add Chat</Button>
+        </div>
         <Controls />
         <Background />
       </ReactFlow>

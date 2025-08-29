@@ -1,6 +1,5 @@
 import AppHeader from "@/components/AppHeader";
-import StudioCanvas from "@/components/StudioCanvas";
-import ChatBox from "@/components/ChatBox";
+import CanvasCollab from "@/components/CanvasCollab";
 
 export default function Home() {
   return (
@@ -9,7 +8,7 @@ export default function Home() {
 
       {/* Full-bleed canvas layer */}
       <div className="absolute inset-0">
-        <StudioCanvas variant="plain" />
+        <CanvasCollab />
       </div>
 
       {/* Header overlay */}
@@ -17,10 +16,7 @@ export default function Home() {
         <AppHeader />
       </div>
 
-      {/* Chat overlay */}
-      <div className="absolute left-4 bottom-4 w-[440px] max-w-[92vw] z-20">
-        <ChatBox variant="card" />
-      </div>
+      {/* Chat overlay removed; use Add Chat button to spawn chat as a node */}
     </div>
   );
 }
