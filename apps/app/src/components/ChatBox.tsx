@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
-import { useAuthActions } from "@convex-dev/auth/react";
 
 function getClientId(): string {
   if (typeof window === "undefined") return "ssr";
@@ -30,7 +29,6 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
   const clientId = useMemo(() => getClientId(), []);
   const { open } = useAppKit();
   const { address, caipAddress, isConnected } = useAppKitAccount();
-  const { signIn } = useAuthActions();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
     const stored = window.localStorage.getItem("canvas.username");
@@ -45,38 +43,19 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
     const text = message.trim();
     if (!text && isAuthenticated) return;
     
-    // Check authentication before attempting to send
+    // Gate sending until Convex auth is established; AuthBridge handles sign-in automatically
     if (!isAuthenticated) {
-      // If wallet is connected but not authenticated, try to sign in with CAIP-10 or EVM address
       const unified = (caipAddress ?? address) || null;
-      if (unified) {
-        try {
-          await signIn("wallet", { address: unified.toLowerCase() });
-          // After successful sign-in, send the message if there was one
-          if (text) {
-            await send({ threadId, content: text, clientId, username });
-            setMessage("");
-          }
-        } catch (err) {
-          console.error("Sign-in failed:", err);
-          toast("Authentication failed", {
-            description: "Please try connecting your wallet again.",
-            action: {
-              label: "Open wallet",
-              onClick: () => void open(),
-            },
-            duration: 5000,
-          });
-        }
-      } else {
-        // No wallet connected, open wallet modal
+      if (!unified) {
         toast("Connect wallet to chat", {
           description: "Please sign in with your wallet to send messages.",
-          action: {
-            label: "Connect wallet",
-            onClick: () => void open(),
-          },
+          action: { label: "Connect wallet", onClick: () => void open() },
           duration: 5000,
+        });
+      } else {
+        toast("Signing in…", {
+          description: "Finalizing authentication. Try sending again in a moment.",
+          duration: 3000,
         });
       }
       return;
