@@ -132,9 +132,11 @@ function CanvasCollabInner({ roomId }: { roomId: string }) {
         nodeTypes={{ text: TextNode, chat: ChatNode }}
         fitView
       >
-        <div className="absolute left-2 top-2 z-20 flex gap-2">
-          <Button size="sm" variant="outline" onClick={addText}>Add Text</Button>
-          <Button size="sm" variant="outline" onClick={addChat}>Add Chat</Button>
+        <div className="absolute bottom-4 right-4 z-20">
+          <div className="rounded-lg border border-border bg-background/80 backdrop-blur shadow p-2 flex flex-col gap-2">
+            <Button size="sm" variant="outline" onClick={addText}>Add Text</Button>
+            <Button size="sm" variant="outline" onClick={addChat}>Add Chat</Button>
+          </div>
         </div>
         <Controls />
         <Background />
