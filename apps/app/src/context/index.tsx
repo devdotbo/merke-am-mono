@@ -2,7 +2,9 @@
 
 import { wagmiAdapter, projectId, networks } from '@/config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createAppKit, useAppKitTheme } from '@reown/appkit/react'
+import { createAppKit } from '@reown/appkit'
+import { useAppKitTheme } from '@reown/appkit/react'
+import { ReownAuthentication } from '@reown/appkit-siwx'
 import React, { type ReactNode, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { cookieToInitialState, WagmiProvider } from 'wagmi'
@@ -17,11 +19,15 @@ const queryClient = new QueryClient()
 const metadata = {
 	name: 'merke.am',
 	description: 'merke.am dApp',
-	url: 'http://localhost:3000', // origin must match your domain & subdomain
+	url: typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3002',
 	icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
 // Create the modal
+if (!projectId) {
+	console.error('AppKit projectId is missing. Set NEXT_PUBLIC_PROJECT_ID')
+}
+
 export const modal = createAppKit({
 	adapters: [wagmiAdapter],
 	projectId,
@@ -31,6 +37,7 @@ export const modal = createAppKit({
 		analytics: true // Optional - defaults to your Cloud configuration
 	},
 	// Prefer CSS variable overrides in globals.css for AppKit theming
+	siwx: new ReownAuthentication()
 })
 
 function AppKitThemeSync() {
