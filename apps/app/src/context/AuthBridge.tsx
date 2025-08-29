@@ -5,11 +5,9 @@ import { useAppKitAccount } from "@reown/appkit/react";
 import { useConvexAuth } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { toast } from "sonner";
-import { useAccount } from "wagmi";
 
 export default function AuthBridge() {
-  const { address, isConnected } = useAppKitAccount();
-  const { address: wagmiAddress, isConnected: wagmiConnected } = useAccount();
+  const { address, caipAddress, isConnected } = useAppKitAccount();
   const { isAuthenticated } = useConvexAuth();
   const { signIn, signOut } = useAuthActions();
   const lastAddress = useRef<string | null>(null);
@@ -17,8 +15,8 @@ export default function AuthBridge() {
 
   useEffect(() => {
     // When wallet connects with a new address, sign into Convex using credentials provider
-    const resolvedAddress = (wagmiAddress ?? address) || null;
-    const anyConnected = Boolean(wagmiConnected || isConnected);
+    const resolvedAddress = (caipAddress ?? address) || null; // Prefer CAIP-10 when available
+    const anyConnected = Boolean(isConnected);
 
     console.log("[AuthBridge] State:", {
       anyConnected,
@@ -65,7 +63,7 @@ export default function AuthBridge() {
       void signOut().catch(() => {});
       lastAddress.current = null;
     }
-  }, [isConnected, address, wagmiConnected, wagmiAddress, isAuthenticated, signIn, signOut]);
+  }, [isConnected, address, caipAddress, isAuthenticated, signIn, signOut]);
 
   return null;
 }

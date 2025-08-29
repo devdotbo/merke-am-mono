@@ -10,8 +10,6 @@
     "check-types": "tsc --noEmit",
     "convex:dev": "convex dev",
     "convex:codegen": "convex codegen",
-    "convex:push": "convex push",
-    "convex:deploy": "convex deploy",
     "convex:dashboard": "convex dashboard"
   },
   "dependencies": {

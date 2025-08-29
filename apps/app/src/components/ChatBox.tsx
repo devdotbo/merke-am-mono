@@ -29,7 +29,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const clientId = useMemo(() => getClientId(), []);
   const { open } = useAppKit();
-  const { address } = useAppKitAccount();
+  const { address, caipAddress } = useAppKitAccount();
   const { signIn } = useAuthActions();
   const [username] = useState<string>(() => {
     if (typeof window === "undefined") return "guest";
@@ -47,10 +47,11 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
     
     // Check authentication before attempting to send
     if (!isAuthenticated) {
-      // If wallet is connected but not authenticated, try to sign in
-      if (address) {
+      // If wallet is connected but not authenticated, try to sign in with CAIP-10 or EVM address
+      const unified = (caipAddress ?? address) || null;
+      if (unified) {
         try {
-          await signIn("wallet", { address: address.toLowerCase() });
+          await signIn("wallet", { address: unified.toLowerCase() });
           // After successful sign-in, send the message if there was one
           if (text) {
             await send({ threadId, content: text, clientId, username });
@@ -130,7 +131,7 @@ export default function ChatBox({ defaultThreadId = "home", variant = "card" }: 
         <Button 
           className="border-2" 
           onClick={() => void handleSend()} 
-          disabled={message.trim().length === 0 || isLoading || !isAuthenticated} 
+          disabled={isLoading || (isAuthenticated && message.trim().length === 0)} 
           variant="outline"
         >
           {isAuthenticated ? "Send" : "Connect"}

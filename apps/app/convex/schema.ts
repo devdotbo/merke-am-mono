@@ -2,7 +2,7 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 import { authTables } from "@convex-dev/auth/server";
 
-// Minimal users table with onchain address for SIWE-style linking
+// Minimal users table with onchain account address (CAIP-10) for SIWX linking
 const users = defineTable({
   address: v.optional(v.string()),
   name: v.optional(v.string()),
