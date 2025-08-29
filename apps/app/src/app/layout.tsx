@@ -3,7 +3,6 @@ import { Geist, Cormorant_Garamond } from "next/font/google";
 import { headers } from 'next/headers' // added
 import './globals.css';
 import 'reactflow/dist/style.css';
-import 'reactflow/dist/style.css';
 import ContextProvider from '@/context'
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
