@@ -2,7 +2,7 @@
 
 import { wagmiAdapter, projectId, networks } from '@/config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createAppKit } from '@reown/appkit'
+import { createAppKit } from '@reown/appkit/react'
 import { useAppKitTheme } from '@reown/appkit/react'
 import { ReownAuthentication } from '@reown/appkit-siwx'
 import React, { type ReactNode, useEffect } from 'react'
