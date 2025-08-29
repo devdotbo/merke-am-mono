@@ -1,5 +1,5 @@
 import AppHeader from "@/components/AppHeader";
-import CanvasCollab from "@/components/CanvasCollab";
+import StudioCanvas from "@/components/StudioCanvas";
 import ChatBox from "@/components/ChatBox";
 
 export default function Home() {
@@ -18,11 +18,11 @@ export default function Home() {
               <ChatBox />
             </div>
           </div>
-          {/* Right column: Canvas (matched heading height for alignment) */}
+          {/* Right column: Studio canvas */}
           <div className="flex flex-col h-[calc(100vh-180px)]">
-            <h2 className="text-xl font-semibold mb-3 lg:mb-4 opacity-0 select-none">Canvas</h2>
+            <h2 className="text-xl font-semibold mb-3 lg:mb-4">Studio</h2>
             <div className="flex-1 min-h-0">
-              <CanvasCollab />
+              <StudioCanvas />
             </div>
           </div>
         </div>

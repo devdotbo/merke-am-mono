@@ -10,7 +10,6 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
   type Node,
-  type Edge,
   type OnNodesChange,
   type OnEdgesChange,
   type OnConnect,
@@ -21,7 +20,7 @@ import type { Id } from "@convex/_generated/dataModel";
 
 type RFNodeData = { label: string; kind: string };
 type RFNode = Node<RFNodeData>;
-type RFEdge = Edge;
+// edges use default type, no explicit alias needed
 
 export default function CanvasCollab({ roomId = "home" }: { roomId?: string }) {
   const dbNodes = useQuery(api.canvas.listNodes, { roomId });
